@@ -16,7 +16,6 @@ public class VotoSessioneController extends Controller {
 	// devo cercare un modo per eliminare la necessita di una riferenza ad elettore
 	// Possibilita: fare un'altra schermata apposta per le votazioni in presenza.
 	private SessioneDiVoto sessione;
-	
 	private ISessioneDAO sessioneDao;
 	
 	@FXML

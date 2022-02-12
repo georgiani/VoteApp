@@ -16,7 +16,6 @@
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/IDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/data/DBManager.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/risultati/RisultatoCandidato.java
-/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/gestoremain/ConfigurazioneSessioneController.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/utente/Utente.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/utente/UtenteJDBCDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/elettoremain/HomeElettoreController.java

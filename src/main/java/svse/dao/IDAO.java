@@ -1,8 +1,10 @@
 package svse.dao;
 import java.util.List;
 
+import ps.IObservable;
+
 // aggregazione di famiglie di prodotti
-public interface IDAO<T> {
+public interface IDAO<T> extends IObservable {
 	public T get(String id);
 	public List<T> getAll();
 	public void save(T t);

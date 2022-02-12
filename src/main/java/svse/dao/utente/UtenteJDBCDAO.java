@@ -4,6 +4,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.*;
 import java.util.List;
+
+import ps.IObserver;
+
 import java.util.ArrayList;
 import svse.data.DBManager;
 import svse.exceptions.*;
@@ -14,7 +17,7 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 
 	public UtenteJDBCDAO() {}
 	
-	public Utente login(String cf, String password) throws NotFoundException {		
+	public Utente login(String cf, String password) {		
 		String hashedPassword = sha1Hashing(password);
 	
 		// query
@@ -184,5 +187,23 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public void addObserver(IObserver o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeObserver(IObserver o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyObservers() {
+		// TODO Auto-generated method stub
+		
 	}
 }

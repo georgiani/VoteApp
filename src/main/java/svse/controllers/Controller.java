@@ -3,9 +3,10 @@ package svse.controllers;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import ps.IObserver;
 import svse.App;
 
-public abstract class Controller {
+public abstract class Controller  {
 	// inizializza la schermata
 	public abstract void init(Object parameter);
 	

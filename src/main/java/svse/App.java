@@ -25,6 +25,11 @@ public class App extends Application {
 		primaryStage.show();
 	}
 	
+	@Override
+	public void stop() {
+		DBManager.getInstance().close();
+	}
+	
 	public static Scene getAppScene() {
 		return primaryScene;
 	}

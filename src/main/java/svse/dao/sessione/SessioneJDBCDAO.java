@@ -5,19 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import ps.IObservable;
 import ps.IObserver;
 import svse.data.DBManager;
 import svse.exceptions.*;
 import svse.models.sessione.*;
 
-public class SessioneJDBCDAO implements ISessioneDAO, IObservable {
+public class SessioneJDBCDAO implements ISessioneDAO {
 	
 	private List<IObserver> obs = new ArrayList<IObserver>();
 
 	@Override
 	public SessioneDiVoto get(String id) {
+		System.out.println(id);
 		String q = "select * from Sessione where nome = ?;";
 			
 		// prepara e gira la query
@@ -25,16 +24,14 @@ public class SessioneJDBCDAO implements ISessioneDAO, IObservable {
 		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
 		try {
 			p.setString(1, id);
-				
+					
 			ResultSet res = p.executeQuery();
-				
-			// nessun risultato
-			if (!res.isBeforeFirst())
-				throw new NotFoundException("Sessione non trovata!");
-				
+			
+			// TODO: controllo sessione non esistente
+			
 			// prendi i risultati
-			res.next();
-			result = getSessioneFromResult(res);
+			while (res.next())
+				result = getSessioneFromResult(res);
 		} catch (SQLException e) {
 			throw new DatabaseException("Problemi con la base dati, riprovare!");
 		}
@@ -70,10 +67,8 @@ public class SessioneJDBCDAO implements ISessioneDAO, IObservable {
 		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
 		try {	
 			ResultSet res = p.executeQuery();
-				
-			// nessun risultato
-			if (!res.isBeforeFirst())
-				throw new NotFoundException("Sessione non trovata!");
+			
+			// TODO: controllo 0 sessioni
 				
 			// prendi i risultati
 			while (res.next())
@@ -91,17 +86,38 @@ public class SessioneJDBCDAO implements ISessioneDAO, IObservable {
 		notifyObservers();
 	}
 
-	@Override
-	public void update(SessioneDiVoto t, SessioneDiVoto u) {
-		// non serve
-	}
-
-	@Override
-	public void delete(SessioneDiVoto t) {
-		// non serve
-	}
-
 	// Additional
+	
+	@Override
+	public void start(SessioneDiVoto s) {
+		String q = "update Sessione set status = 's' where nome = ?;";
+		
+		// prepara e gira la query
+		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+		try {	
+			p.setString(1, s.getNome());
+			p.execute();
+		} catch (SQLException e) {
+			throw new DatabaseException("Problemi con la base dati, riprovare!");
+		}
+		notifyObservers();
+	}
+
+	@Override
+	public void stop(SessioneDiVoto s) {
+		String q = "update Sessione set status = 'f' where nome = ?;";
+		
+		// prepara e gira la query
+		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+		try {	
+			p.setString(1, s.getNome());
+			p.execute();
+		} catch (SQLException e) {
+			throw new DatabaseException("Problemi con la base dati, riprovare!");
+		}
+		notifyObservers();
+		notifyObservers();
+	}
 	
 	@Override
 	public List<Lista> getListe(String nomeSessione) {
@@ -134,20 +150,20 @@ public class SessioneJDBCDAO implements ISessioneDAO, IObservable {
 	}
 	
 	// TODO:
-		@Override
-		public List<Voto> getVoti(String nomeSessione) {
-			String q = "select ";
+	@Override
+	public List<Voto> getVoti(String nomeSessione) {
+		String q = "select ";
 			
-			// prepara e gira la query
-			List<Voto> result = null;
-			PreparedStatement p = DBManager.getInstance().preparaStatement(q);
-			try {
-				//p.setString(1, id);
+		//prepara e gira la query
+		List<Voto> result = null;
+		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+		try {
+			//p.setString(1, id);
 					
-				ResultSet res = p.executeQuery();
-			} catch (SQLException e) {
-				throw new DatabaseException("Problemi con la base dati, riprovare!");
-			}
+			ResultSet res = p.executeQuery();
+		} catch (SQLException e) {
+			throw new DatabaseException("Problemi con la base dati, riprovare!");
+		}
 			
 			// Count voti per candidato
 			//SELECT
@@ -165,8 +181,8 @@ public class SessioneJDBCDAO implements ISessioneDAO, IObservable {
 			// S.id,
 			// P.id
 			
-			return result;
-		}
+		return result;
+	}
 
 	@Override
 	public void addObserver(IObserver o) {
@@ -183,5 +199,15 @@ public class SessioneJDBCDAO implements ISessioneDAO, IObservable {
 		for (IObserver o : obs) {
 			o.update();
 		}
+	}
+	
+	@Override
+	public void update(SessioneDiVoto t, SessioneDiVoto u) {
+		// non serve
+	}
+
+	@Override
+	public void delete(SessioneDiVoto t) {
+		// non serve
 	}
 }

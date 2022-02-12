@@ -33,12 +33,14 @@ public class HomeGestoreController extends Controller implements IObserver {
 	@FXML
 	private Button addSessioneButton;
 	
-	private String sessioneSelezionata;
+	private String sessioneSelezionata = null;
 	private SessioneDiVoto sessione;
-	private Button modificaButton, startButton, stopButton, totemButton, risultatiButton;
 	private ISessioneDAO sessioneDao;
+	private ChangeListener<? super String> listener;
 	
-	private void infoSessione() {
+	private void infoSessione(String newVal) {
+		sessioneSelezionata = newVal;
+		sessione = sessioneDao.get(sessioneSelezionata);
     	// pulizia panello info
 		infoPane.getChildren().clear();
 		
@@ -48,89 +50,67 @@ public class HomeGestoreController extends Controller implements IObserver {
 		// titolo sessione
 		infoPane.getChildren().addAll(new Label(sessioneSelezionata), hss, hmtr);
 		
-		modificaButton = new Button("Modifica");
-		startButton = new Button("Start");
-		stopButton = new Button("Stop");
-		totemButton = new Button("Totem");
-		risultatiButton = new Button("Risultati");
+		Button startButton = new Button("Start");
+		Button stopButton = new Button("Stop");
+		Button totemButton = new Button("Totem");
+		Button risultatiButton = new Button("Risultati");
 		
-		modificaButton.setOnAction(e -> modifica());
 		startButton.setOnAction(e -> start());
 		stopButton.setOnAction(e -> stop());
 		totemButton.setOnAction(e -> totem());
 		risultatiButton.setOnAction(e -> risultati());
 		
 		hss.getChildren().addAll(startButton, stopButton);
-		hmtr.getChildren().addAll(modificaButton, totemButton, risultatiButton);
+		hmtr.getChildren().addAll(totemButton, risultatiButton);
 		
-		//if (!sessione.isStarted())
-		//stopButton.setDisable(true);
-		//totemButton.setDisable(true);
-		//modificaButton.setDisable(true)
-		
-		//if (sessione.isStarted())
-		//modificaButton.setDisable(true);
-		//startButton.setDisable(true);
-		//risultatiButton.setDisable(true);
-		
-		//if (sessione.isNew())
-		stopButton.setDisable(true);
-		totemButton.setDisable(true);
-		risultatiButton.setDisable(true);
-    }
-	
-	private void cambiaSessioneSelezionata(String sessioneNuova) {
-		sessioneSelezionata = sessioneNuova;
-		//TODO: sessione = sessioneDao.get(sessioneNuova);
-	}
-	
-	private void updateSessioni() {
-    	sessioni.getItems().clear();
-    	List<SessioneDiVoto> ses = sessioneDao.getAll();
-    	
-		for (SessioneDiVoto s: ses)
-			sessioni.getItems().add(s.getNome());
+		if (sessione.isNew()) {
+			System.out.println("Nuovooo");
+			startButton.setDisable(false);
+			stopButton.setDisable(true);
+			totemButton.setDisable(true);
+			risultatiButton.setDisable(true);
+		} else if(!sessione.isStarted()) {
+			System.out.println("Stoppatttto");
+			startButton.setDisable(true);
+			stopButton.setDisable(true);
+			totemButton.setDisable(true);
+			risultatiButton.setDisable(false);
+		} else if (sessione.isStarted()) {
+			System.out.println("Startatttto");
+			startButton.setDisable(true);
+			stopButton.setDisable(false);
+			totemButton.setDisable(false);
+			risultatiButton.setDisable(true);
+		}
     }
 	
 	@Override
 	public void init(Object parameter) {
 		gestore = (Gestore)parameter;
 		sessioneDao = DAOFactory.getFactory().getSessioneDAOInstance();
+		sessioneDao.addObserver(this);
+		
+		// creazione listener
+		listener = (ObservableValue<? extends String> obs, String o, String newVal) -> infoSessione(newVal);
 		
 		// Listener per cambio selezione
-		sessioni.getSelectionModel().selectedItemProperty().addListener(
-				new ChangeListener<String>() {
-					@Override
-					public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
-						cambiaSessioneSelezionata(newVal);
-						infoSessione();
-					}
-				}
-		);
+		sessioni.getSelectionModel().selectedItemProperty().addListener(listener);
 		
-		updateSessioni();
+		update();
 	}
 
     public void logout(ActionEvent event) {
     	changeView("views/Login.fxml");
     }
 	
-	public void modifica() {
-		changeView("views/ConfigurazioneSessione.fxml", List.of(gestore, sessioneSelezionata));
-	}
-	
 	public void start() {
-		if (!sessione.isStarted()) {
-			//sessioneDao.start(sessioneSelezionata)
-			sessione.start();
-		}
+		if (sessione.isNew() || !sessione.isStarted())
+			sessioneDao.start(sessione);
 	}
 	
 	public void stop() {
-		if (sessione.isStarted()) {
-			//sessioneDao.stop(sessioneSelezionata)
-			sessione.stop();
-		}
+		if (sessione.isStarted())
+			sessioneDao.stop(sessione);
 	}
 	
 	public void totem() {
@@ -140,10 +120,28 @@ public class HomeGestoreController extends Controller implements IObserver {
 	public void risultati() {
 		changeView("views/Risultati.fxml", List.of(gestore, sessioneSelezionata));
 	}
-
+	
 	@Override
 	public void update() {
-		updateSessioni();
+		// disattivare il listener per pulire la lista
+		sessioni.getSelectionModel().selectedItemProperty().removeListener(listener);
+		
+		// pulire la lista
+    	sessioni.getItems().clear();
+    	
+    	// ricaricare le sessioni
+    	List<SessioneDiVoto> ses = sessioneDao.getAll();
+    	
+		for (SessioneDiVoto s: ses)
+			sessioni.getItems().add(s.getNome());
+		
+		if (sessioneSelezionata != null) {
+			infoSessione(sessioneSelezionata);
+			sessioni.getSelectionModel().select(sessioneSelezionata);
+		}
+		
+		sessioni.getSelectionModel().selectedItemProperty().addListener(listener);
+		
 	}
 	
 	public void addSessione() {

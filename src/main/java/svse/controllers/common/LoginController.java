@@ -78,8 +78,9 @@ public class LoginController extends Controller {
 	 * attraverso la gui.
 	 */
 	public void autenticaGestore() {
+		Utente u = null;
 		try {
-			Utente u = utenteDAO.login(cfGestore.getText(), passGestore.getText());
+			u = utenteDAO.login(cfGestore.getText(), passGestore.getText());
 			
 			// si verifica se le credenziali inserite dall'utente sono davvero di un Gestore 
 			if (u.isGestore()) {
@@ -88,6 +89,7 @@ public class LoginController extends Controller {
 			}
 			else showErroreGestore();
 		} catch (NotFoundException nfe) {
+			System.out.println(u.getNome() + u.getCognome());
 			showErroreGestore();
 		}
 	}
