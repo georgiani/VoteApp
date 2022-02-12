@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="svse.controllers.common.LoginController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="196.0" prefWidth="419.0" SplitPane.resizableWithParent="false">
+         <children>
+            <Button fx:id="authElettore" layoutX="192.0" layoutY="152.0" mnemonicParsing="false" onAction="#autenticaElettore" text="Autenticazione" />
+            <Label layoutX="278.0" layoutY="6.0" text="Elettore" />
+            <TextField fx:id="cfElettore" layoutX="219.0" layoutY="70.0" promptText="Codice Fiscale" />
+            <PasswordField fx:id="passElettore" layoutX="219.0" layoutY="101.0" promptText="Password" />
+            <Button fx:id="signupElettore" layoutX="301.0" layoutY="152.0" mnemonicParsing="false" onAction="#registraElettore" text="Registrazione" />
+            <Label fx:id="erroreLoginElettore" alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="126.0" prefHeight="17.0" prefWidth="186.0" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+            <Label fx:id="erroreDb" layoutX="527.0" layoutY="6.0" prefHeight="17.0" prefWidth="13.0" />
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+         <children>
+            <Button fx:id="authGestore" layoutX="249.0" layoutY="152.0" mnemonicParsing="false" onAction="#autenticaGestore" text="Autenticazione" />
+            <Label layoutX="277.0" layoutY="6.0" text="Gestore" />
+            <TextField fx:id="cfGestore" layoutX="219.0" layoutY="70.0" promptText="Nome Utente" />
+            <PasswordField fx:id="passGestore" layoutX="219.0" layoutY="101.0" promptText="Password" />
+            <Label fx:id="erroreLoginGestore" alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="129.0" prefHeight="17.0" prefWidth="186.0" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+         </children></AnchorPane>
+  </items>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</SplitPane>
