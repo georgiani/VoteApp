@@ -9,16 +9,17 @@ import svse.models.sessione_vincita_strategies.VincitaStrategy;
 public class SessioneDiVoto {
 	private String nomeSessione;
 	private VincitaStrategy strategiaVincita;
-	private String strategiaVoto; // TODO: capire se fare questa
-	// come strategia o lasciare stringa
-	private Boolean inCorso = null;
+	private String strategiaVincitaS;
+	private String strategiaVoto;
+	private String stato = null;
 	private String tipo = null;
 	
 	public SessioneDiVoto(String n, String vincita, String voto, String status, String t) {
 		nomeSessione = n;
+		strategiaVincitaS = vincita;
 		strategiaVincita = VincitaStrategy.getStrategy(vincita);
 		strategiaVoto = voto;
-		inCorso = status.equals("n") ? null : status.equals("s"); // se e n -> new, else se e s -> in corso, else stopped/false
+		stato = status;
 		tipo = t;
 	}
 	
@@ -31,26 +32,31 @@ public class SessioneDiVoto {
 	}
 	
 	public boolean isStarted() {
-		return inCorso == null ? false : inCorso;
+		return stato.equals("s");
 	}
 	
 	public boolean isNew() {
-		return inCorso == null;
+		return stato.equals("n");
 	}
 	
-	public void start() {
-		inCorso = true;
+	public boolean isFinished() {
+		return stato.equals("f");
 	}
 	
-	public void stop() {
-		inCorso = false;
+	public String getStatus() {
+		return stato;
 	}
 	
 	public String getStrategiaVoto() {
 		return strategiaVoto;
 	}
 	
-	public String getOrdinaleCategoricoType() {
-		return (strategiaVoto.equals("o") || strategiaVoto.equals("c")) ? tipo : "0";
+	public String getStrategiaVincita() {
+		return strategiaVincitaS;
 	}
+	
+	public String getOrdinaleCategoricoType() {
+		return (strategiaVoto.equals("o") || strategiaVoto.equals("c")) ? tipo : null;
+	}
+	
 }

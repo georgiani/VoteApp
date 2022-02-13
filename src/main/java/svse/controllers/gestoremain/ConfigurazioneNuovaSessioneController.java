@@ -15,7 +15,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import svse.controllers.Controller;
+import svse.dao.factory.DAOFactory;
+import svse.dao.sessione.ISessioneDAO;
 import svse.models.componentistica.Candidato;
+import svse.models.componentistica.Partito;
+import svse.models.sessione.Lista;
 import svse.models.sessione.SessioneDiVoto;
 import svse.models.utente.Gestore;
 
@@ -64,11 +68,29 @@ private Gestore gestore;
     private String nomeS;
     private Map<String, List<Candidato>> liste;
     private String listaCorrente, chVoto, chVincita, chTipo;
+    private ISessioneDAO sessioneDao;
     
     @FXML
     public void avanti(ActionEvent e) {
     	// da fare la sessione di voto con tutte le cose e passare al ripielogo
     	// o dare un errore se qualcosa non fosse completato
+    	
+    	// cose da fare in ripielogo... non qua
+    	chTipo = (soloPartiti.isDisabled() ? null : (soloPartiti.isSelected() ? "p" : "c"));
+    	SessioneDiVoto s = new SessioneDiVoto(nomeS, chVincita, chVoto, "n", chTipo);
+//    	sessioneDao.save(s);
+//    	
+//    	// inserimento liste + candidati
+//    	for (Map.Entry<String, List<Candidato>> entry : liste.entrySet()) {
+//    		Lista l = new Lista(new Partito(entry.getKey()), entry.getValue());
+//    		sessioneDao.save(l, s); // salvataggio lista in coerenza con la sua sessione
+//    		
+//    		for (Candidato c : l.getCandidati()) {
+//    			sessioneDao.save(c, l);
+//    		}
+//    	}
+    	
+    	changeView("views/RipielogoNuovaSessione.fxml", List.of(s, liste));
     }
 	
     public void aggiungiNome() {
@@ -114,6 +136,7 @@ private Gestore gestore;
 	public void init(Object parameter) {
 		gestore = (Gestore)parameter;
 		liste = new HashMap<>();
+		sessioneDao = DAOFactory.getFactory().getSessioneDAOInstance();
 		selezioneVoto.getItems().addAll("Ordinale", "Categorico", "Categorico Con Preferenze", "Referendum");
 		selezioneVincita.getItems().addAll("Maggioranza", "Maggioranza Assoluta", "Referendum Senza Quorum", "Referendum Con Quorum");
 		selezioneVoto.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> obs, String oldVal, String newVal) -> cambiaModVoto(newVal));

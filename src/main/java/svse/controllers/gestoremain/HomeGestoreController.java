@@ -69,7 +69,7 @@ public class HomeGestoreController extends Controller implements IObserver {
 			stopButton.setDisable(true);
 			totemButton.setDisable(true);
 			risultatiButton.setDisable(true);
-		} else if(!sessione.isStarted()) {
+		} else if(sessione.isFinished()) {
 			System.out.println("Stoppatttto");
 			startButton.setDisable(true);
 			stopButton.setDisable(true);
