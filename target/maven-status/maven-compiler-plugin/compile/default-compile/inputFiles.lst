@@ -39,4 +39,3 @@
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/MaggioranzaAssolutaStrategy.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/sessione/SessioneJDBCDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/MaggioranzaStrategy.java
-/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/gestoremain/RipielogoNuovaSessioneController.java

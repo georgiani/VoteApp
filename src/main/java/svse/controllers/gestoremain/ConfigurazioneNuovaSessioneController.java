@@ -9,10 +9,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import svse.controllers.Controller;
 import svse.dao.factory.DAOFactory;
@@ -72,25 +75,62 @@ private Gestore gestore;
     
     @FXML
     public void avanti(ActionEvent e) {
-    	// da fare la sessione di voto con tutte le cose e passare al ripielogo
-    	// o dare un errore se qualcosa non fosse completato
+    	if (controlloCampi()) {
+    		Alert alert = new Alert(AlertType.CONFIRMATION, "Confermi di voler creare la sessione " + nomeSessione.getText() + "?");
+        	alert.showAndWait();
+        	if (alert.getResult() == ButtonType.OK) {
+        		chTipo = (soloPartiti.isDisabled() ? null : (soloPartiti.isSelected() ? "p" : "c"));
+        		nomeS = nomeSessione.getText();
+            	SessioneDiVoto s = new SessioneDiVoto(nomeS, chVincita, chVoto, "n", chTipo);
+            	sessioneDao.save(s); // insert sessione
+            	for (Map.Entry<String, List<Candidato>> entry : liste.entrySet()) {
+            		Lista l = new Lista(new Partito(entry.getKey()), entry.getValue());
+            		sessioneDao.save(l, s); // salvataggio lista in coerenza con la sua sessione
+            		
+            		for (Candidato c : l.getCandidati())
+            			sessioneDao.save(c, l); // salvataggio candidati con riferimento alla lista
+            	}
+        	}
+        	
+        	// finisci ed esci
+        	changeView("views/HomeGestore.fxml", gestore);
+    	}
+    }
+    
+    private boolean isEmptyOrNull(String s) {
+    	if (s == null)
+    		return false;
+    	if (s.isEmpty())
+    		return true;
+    	return false;
+    }
+    
+    private boolean controlloCampi() {
+    	if (isEmptyOrNull(selezioneVoto.getSelectionModel().getSelectedItem())) {
+    		Alert alert = new Alert(AlertType.INFORMATION, "Voto non selezionato!");
+    		alert.showAndWait();
+    		return false;
+    	}
     	
-    	// cose da fare in ripielogo... non qua
-    	chTipo = (soloPartiti.isDisabled() ? null : (soloPartiti.isSelected() ? "p" : "c"));
-    	SessioneDiVoto s = new SessioneDiVoto(nomeS, chVincita, chVoto, "n", chTipo);
-//    	sessioneDao.save(s);
-//    	
-//    	// inserimento liste + candidati
-//    	for (Map.Entry<String, List<Candidato>> entry : liste.entrySet()) {
-//    		Lista l = new Lista(new Partito(entry.getKey()), entry.getValue());
-//    		sessioneDao.save(l, s); // salvataggio lista in coerenza con la sua sessione
-//    		
-//    		for (Candidato c : l.getCandidati()) {
-//    			sessioneDao.save(c, l);
-//    		}
-//    	}
+    	if (isEmptyOrNull(selezioneVincita.getSelectionModel().getSelectedItem())) {
+    		Alert alert = new Alert(AlertType.INFORMATION, "Vincita non selezionato!");
+    		alert.showAndWait();
+    		return false;
+    	}
     	
-    	changeView("views/RipielogoNuovaSessione.fxml", List.of(s, liste));
+    	if (isEmptyOrNull(nomeSessione.getText())) {
+    		Alert alert = new Alert(AlertType.INFORMATION, "Nome sessione non inserito!");
+    		alert.showAndWait();
+    		return false;
+    	}
+    	
+    	if (liste.keySet().isEmpty()) {
+    		Alert alert = new Alert(AlertType.INFORMATION, "Inserire delle liste!");
+    		alert.showAndWait();
+    		return false;
+    	}
+    	
+    	return true;
     }
 	
     public void aggiungiNome() {
@@ -98,6 +138,7 @@ private Gestore gestore;
     	if (!liste.containsKey(listaCorrente))
     		liste.put(listaCorrente, new ArrayList<Candidato>());
     	titoloBoxListe.setText("Aggiungi alla lista: " + listaCorrente);	
+    	System.out.println(liste.keySet());
     }
     
     public void aggiungiCandidato() {
@@ -117,6 +158,7 @@ private Gestore gestore;
     		chVoto = "r";
     		selezioneVincita.getItems().clear();
     		selezioneVincita.getItems().addAll("Referendum Senza Quorum", "Referendum Con Quorum");
+    		soloPartiti.setDisable(true);
     	} else {
     		selezioneVincita.getItems().clear();
     		selezioneVincita.getItems().addAll("Maggioranza", "Maggioranza Assoluta");
@@ -124,6 +166,8 @@ private Gestore gestore;
     		
     		if (chVoto.equals("o") || chVoto.equals("c")) {
     			soloPartiti.setDisable(false);
+    		} else {
+    			soloPartiti.setDisable(true);
     		}
     	}
     }
@@ -141,6 +185,5 @@ private Gestore gestore;
 		selezioneVincita.getItems().addAll("Maggioranza", "Maggioranza Assoluta", "Referendum Senza Quorum", "Referendum Con Quorum");
 		selezioneVoto.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> obs, String oldVal, String newVal) -> cambiaModVoto(newVal));
 		selezioneVincita.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> obs, String oldVal, String newVal) -> cambiaModVincita(newVal));
-		nomeSessione.textProperty().addListener((ObservableValue<? extends String> obs, String oldVal, String newVal) -> {nomeS = newVal;});
 	}
 }

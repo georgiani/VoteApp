@@ -128,15 +128,7 @@ public class DBManager {
 			return false;
 		}
 	}
-	
-	/***
-	 * Restituisce la connessione che puo essere usata dalle DAO per fare query.
-	 * @return la connessione.
-	 */
-	public Connection getCon() {
-		return this.con;
-	}
-	
+
 	public PreparedStatement preparaStatement(String q) {
 		PreparedStatement result = null;
 		try {
