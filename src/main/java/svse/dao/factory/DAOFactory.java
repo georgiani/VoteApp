@@ -1,6 +1,7 @@
 package svse.dao.factory;
 
 import svse.dao.sessione.ISessioneDAO;
+import svse.dao.totem.ITotemDAO;
 import svse.dao.utente.IUtenteDAO;
 
 // abstract factory che si occupa di creare piu famiglie di DAO.
@@ -19,4 +20,5 @@ public abstract class DAOFactory {
 	// factory methods per tutti i dao
 	public abstract IUtenteDAO getUtenteDAOInstance();
 	public abstract ISessioneDAO getSessioneDAOInstance();
+	public abstract ITotemDAO getTotemDAOInstance();
 }

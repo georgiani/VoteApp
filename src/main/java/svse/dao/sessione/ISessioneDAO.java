@@ -5,8 +5,11 @@ import svse.models.componentistica.Candidato;
 import svse.models.sessione.*;
 import java.util.List;
 
-public interface ISessioneDAO extends IDAO<SessioneDiVoto>{
+import ps.IObservable;
+
+public interface ISessioneDAO extends IDAO<SessioneDiVoto>, IObservable {
 	public int getId(SessioneDiVoto s);
+	public SessioneDiVoto getById(int id);
 	public void start(SessioneDiVoto s);
 	public void stop(SessioneDiVoto s);
 	

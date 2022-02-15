@@ -48,7 +48,7 @@ public class HomeGestoreController extends Controller implements IObserver {
 		HBox hmtr = new HBox(10);
 		
 		// titolo sessione
-		infoPane.getChildren().addAll(new Label(sessioneSelezionata), hss, hmtr);
+		infoPane.getChildren().addAll(new Label(sessioneSelezionata), new Label(sessione.getNome()), new Label("Status: " + sessione.getPrettyStatus()), hss, hmtr);
 		
 		Button startButton = new Button("Start");
 		Button stopButton = new Button("Stop");
@@ -64,19 +64,16 @@ public class HomeGestoreController extends Controller implements IObserver {
 		hmtr.getChildren().addAll(totemButton, risultatiButton);
 		
 		if (sessione.isNew()) {
-			System.out.println("Nuovooo");
 			startButton.setDisable(false);
 			stopButton.setDisable(true);
 			totemButton.setDisable(true);
 			risultatiButton.setDisable(true);
 		} else if(sessione.isFinished()) {
-			System.out.println("Stoppatttto");
 			startButton.setDisable(true);
 			stopButton.setDisable(true);
 			totemButton.setDisable(true);
 			risultatiButton.setDisable(false);
 		} else if (sessione.isStarted()) {
-			System.out.println("Startatttto");
 			startButton.setDisable(true);
 			stopButton.setDisable(false);
 			totemButton.setDisable(false);
@@ -141,7 +138,6 @@ public class HomeGestoreController extends Controller implements IObserver {
 		}
 		
 		sessioni.getSelectionModel().selectedItemProperty().addListener(listener);
-		
 	}
 	
 	public void addSessione() {

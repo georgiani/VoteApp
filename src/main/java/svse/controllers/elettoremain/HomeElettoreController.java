@@ -31,6 +31,8 @@ public class HomeElettoreController extends Controller implements IObserver {
     private String sessioneSelezionata;
     private Button entraButton;
     private ISessioneDAO sessioneDao;
+    private ChangeListener<? super String> listener;
+    private SessioneDiVoto sessione;
     
     @FXML
     public void logout(ActionEvent event) {
@@ -38,15 +40,19 @@ public class HomeElettoreController extends Controller implements IObserver {
     }
     
     public void apriSessione() {
-    	changeView("views/VotoSessione.fxml", List.of(elettore, sessioneSelezionata));
+    	changeView("views/VotoSessione.fxml", sessioneSelezionata);
     }
     
-    private void infoSessione() {
+    private void infoSessione(String newVal) {
+    	sessioneSelezionata = newVal;
+    	sessione = sessioneDao.get(sessioneSelezionata);
+    	
     	// pulizia panello info
 		infoPane.getChildren().clear();
 		
 		// titolo sessione
-		infoPane.getChildren().add(new Label(sessioneSelezionata));
+		infoPane.getChildren().add(new Label(sessione.getNome()));
+		infoPane.getChildren().add(new Label("Status: " + sessione.getPrettyStatus()));
 		
 		// creazione tasto per entrare nella sessione
 		entraButton = new Button("Entra");
@@ -55,37 +61,39 @@ public class HomeElettoreController extends Controller implements IObserver {
 		// tast per entrare
 		infoPane.getChildren().add(entraButton);
     }
-    
-    private void updateSessioni() {
-    	sessioni.getItems().clear();
-    	List<SessioneDiVoto> ses = sessioneDao.getAll();
-    	
-		for (SessioneDiVoto s: ses)
-			sessioni.getItems().add(s.getNome());
-    }
 
 	@Override
 	public void init(Object parameter) {
 		elettore = (Elettore)parameter;
 		sessioneDao = DAOFactory.getFactory().getSessioneDAOInstance();
+		sessioneDao.addObserver(this);
+		
+		listener = (ObservableValue<? extends String> obs, String o, String newVal) -> infoSessione(newVal);
 		
 		// Listener per cambio selezione
-		sessioni.getSelectionModel().selectedItemProperty().addListener(
-				new ChangeListener<String>() {
-					@Override
-					public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
-						sessioneSelezionata = newVal;
-						infoSessione();
-					}
-				}
-		);
+		sessioni.getSelectionModel().selectedItemProperty().addListener(listener);
 		
-		// primo aggiornamento sessioni disponibili
-		updateSessioni();
+		// primo aggiornamento sessioni disponibili PER QUESTO UTENTE (TODO: select sessioni rispetto a un'elettore)
+		update();
 	}
 
 	@Override
 	public void update() {
-		updateSessioni();
+		sessioni.getSelectionModel().selectedItemProperty().removeListener(listener);
+		
+		// pulire lista
+		sessioni.getItems().clear();
+		
+		// ricaricare sessioni
+		List<SessioneDiVoto> ses = sessioneDao.getAll();
+		for (SessioneDiVoto s: ses)
+			sessioni.getItems().add(s.getNome());
+		
+		if (sessioneSelezionata != null) {
+			infoSessione(sessioneSelezionata);
+			sessioni.getSelectionModel().select(sessioneSelezionata);
+		}
+		
+		sessioni.getSelectionModel().selectedItemProperty().addListener(listener);
 	}
 }

@@ -3,11 +3,14 @@
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/utente/IUtenteDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/risultati/RisultatoPartito.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/factory/DAOFactory.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/totem/TotemJDBCDAO.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/totem/ITotemDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/utente/Gestore.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/ps/IObserver.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/factory/JDBCDAOFactory.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione/Lista.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/gestoremain/ConfigurazioneNuovaSessioneController.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/logger/ProjectLogger.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione/VotoReferendum.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/sessione/ISessioneDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/ReferendumConQuorumStrategy.java
@@ -16,7 +19,9 @@
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/IDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/data/DBManager.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/risultati/RisultatoCandidato.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/Totem.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/utente/Utente.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/ps/IObservableUDP.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/utente/UtenteJDBCDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/elettoremain/HomeElettoreController.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/elettoremain/ConfermaVotoSessioneController.java
@@ -29,8 +34,10 @@
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/componentistica/Partito.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/componentistica/Candidato.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/risultati/RisultatoReferendum.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/GestoreTotem.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione/Voto.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/gestoremain/VisualizzaRisultatiController.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/ps/IObserverUDP.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/risultati/Risultato.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/elettoremain/RegistrazionController.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/VincitaStrategy.java

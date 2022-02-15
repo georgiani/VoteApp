@@ -7,7 +7,6 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="svse.controllers.elettoremain.VotoSessioneController">
    <children>
-      <Button fx:id="annullaButton" layoutX="527.0" layoutY="14.0" mnemonicParsing="false" onAction="#annulla" text="Annulla" />
       <Label fx:id="nomeSessioneTemp" layoutX="285.0" layoutY="18.0" text="Label" />
    </children>
 </Pane>

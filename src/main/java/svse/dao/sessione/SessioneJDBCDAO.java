@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import ps.IObservable;
 import ps.IObserver;
 import svse.data.DBManager;
 import svse.exceptions.*;
@@ -17,7 +19,6 @@ public class SessioneJDBCDAO implements ISessioneDAO {
 
 	@Override
 	public SessioneDiVoto get(String id) {
-		System.out.println(id);
 		String q = "select * from Sessione where nome = ?;";
 			
 		// prepara e gira la query
@@ -25,6 +26,29 @@ public class SessioneJDBCDAO implements ISessioneDAO {
 		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
 		try {
 			p.setString(1, id);
+					
+			ResultSet res = p.executeQuery();
+			
+			// TODO: controllo sessione non esistente
+			
+			// prendi i risultati
+			while (res.next())
+				result = getSessioneFromResult(res);
+		} catch (SQLException e) {
+			throw new DatabaseException("Problemi con la base dati, riprovare!");
+		}
+			
+		return result;
+	}
+	
+	public SessioneDiVoto getById(int id) {
+		String q = "select * from Sessione where id = ?;";
+		
+		// prepara e gira la query
+		SessioneDiVoto result = null;
+		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+		try {
+			p.setInt(1, id);
 					
 			ResultSet res = p.executeQuery();
 			

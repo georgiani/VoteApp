@@ -1,11 +1,18 @@
 package svse.controllers.common;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import svse.controllers.Controller;
 import svse.dao.factory.DAOFactory;
+import svse.dao.totem.ITotemDAO;
 import svse.dao.utente.IUtenteDAO;
 import svse.exceptions.NotFoundException;
+import svse.models.GestoreTotem;
+import svse.models.Totem;
 import svse.models.utente.Elettore;
 import svse.models.utente.Gestore;
 import svse.models.utente.Utente;
@@ -42,6 +49,10 @@ public class LoginController extends Controller {
 	private Label erroreLoginGestore;
 	
 	private IUtenteDAO utenteDAO = DAOFactory.getFactory().getUtenteDAOInstance();
+	private ITotemDAO totemDAO = DAOFactory.getFactory().getTotemDAOInstance();
+	private Totem thisTotem;
+	private DatagramSocket totemSocket;
+	private Thread gestioneTotem;
 	
 	private void showErroreElettore() {
 		erroreLoginElettore.setText("L'elettore non esiste!");
@@ -64,6 +75,7 @@ public class LoginController extends Controller {
 			
 			// si verifica se le credenziali inserite dall'utente sono davvero di un Elettore
 			if (u.isElettore()) {
+				chiudiTotem();
 				Elettore e = (Elettore)u;
 				changeView("views/HomeElettore.fxml", e);
 			}
@@ -84,12 +96,12 @@ public class LoginController extends Controller {
 			
 			// si verifica se le credenziali inserite dall'utente sono davvero di un Gestore 
 			if (u.isGestore()) {
+				chiudiTotem();
 				Gestore g = (Gestore)u;
 				changeView("views/HomeGestore.fxml", g);
 			}
 			else showErroreGestore();
 		} catch (NotFoundException nfe) {
-			System.out.println(u.getNome() + u.getCognome());
 			showErroreGestore();
 		}
 	}
@@ -98,8 +110,35 @@ public class LoginController extends Controller {
 	public void registraElettore() {
 		// da implementare
 		System.out.println("Navigazione su pagina registrazione");
+		chiudiTotem();
 	}
 
 	@Override
-	public void init(Object parameter) {}
+	public void init(Object parameter) {
+		accendiTotem();
+	}
+	
+	public void accendiTotem() {
+		try {
+			totemSocket = new DatagramSocket(0);
+			thisTotem = new Totem(InetAddress.getLocalHost().getHostAddress(), totemSocket.getLocalPort());
+			totemDAO.save(thisTotem);
+			
+			gestioneTotem = new GestoreTotem(this, totemSocket);
+			gestioneTotem.start();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void chiudiTotem() {
+		totemDAO.delete(thisTotem);
+		gestioneTotem.interrupt();
+		totemSocket.close();
+	}
+	
+	public void passaInVoto(int id) {
+		chiudiTotem();
+		changeView("views/VotoSessione.fxml", id);
+	}
 }

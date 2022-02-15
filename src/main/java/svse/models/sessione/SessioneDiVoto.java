@@ -47,6 +47,16 @@ public class SessioneDiVoto {
 		return stato;
 	}
 	
+	public String getPrettyStatus() {
+		if (stato.equals("n"))
+			return "Non iniziata";
+		
+		if (stato.equals("s"))
+			return "In corso";
+		
+		return "Finita";
+	}
+	
 	public String getStrategiaVoto() {
 		return strategiaVoto;
 	}
