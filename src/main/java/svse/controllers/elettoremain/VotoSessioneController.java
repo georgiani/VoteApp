@@ -1,27 +1,21 @@
 package svse.controllers.elettoremain;
 
-import java.awt.Font;
 import java.util.List;
-
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.*;
 import svse.controllers.Controller;
 import svse.dao.candidato.ICandidatoDAO;
 import svse.dao.factory.DAOFactory;
 import svse.dao.lista.IListaDAO;
 import svse.dao.sessione.ISessioneDAO;
-import svse.models.sessione.Candidato;
-import svse.models.sessione.Lista;
-import svse.models.sessione.SessioneDiVoto;
+import svse.dao.votazione.IVotazioneDAO;
+import svse.models.sessione.*;
+import svse.models.voto.*;
+import svse.App;
 
 public class VotoSessioneController extends Controller {
 	private SessioneDiVoto sessione;
@@ -38,7 +32,9 @@ public class VotoSessioneController extends Controller {
 	private ISessioneDAO sessioneDao;
 	private ICandidatoDAO candidatoDao;
 	private IListaDAO listaDao;
+	private IVotazioneDAO votazioneDao;
 	private ToggleGroup tg;
+	private GridPane g;
 	
 	@Override
 	public void init(Object parameter) {
@@ -47,6 +43,7 @@ public class VotoSessioneController extends Controller {
 		sessioneDao = DAOFactory.getFactory().getSessioneDAOInstance();
 		listaDao = DAOFactory.getFactory().getListaDAOInstance();
 		candidatoDao = DAOFactory.getFactory().getCandidatoDAOInstance();
+		votazioneDao = DAOFactory.getFactory().getVotazioneDAOInstance();
 		
 		sessione = sessioneDao.getById(s);
 		
@@ -63,7 +60,7 @@ public class VotoSessioneController extends Controller {
 	}
 	
 	private void setVotazioneCategorica() {
-		GridPane g = new GridPane();
+		g = new GridPane();
 		g.setAlignment(Pos.CENTER);
 		g.setGridLinesVisible(true);
 		
@@ -122,8 +119,42 @@ public class VotoSessioneController extends Controller {
 		scrollPane.setContent(g);
 	}
 	
-	private void setVotazioneCatConPreferenza() {
+	private void categoricaConPreferenzaRadio(Lista l, int j, int i) {
+		RadioButton result = new RadioButton();
 		
+		VBox boxLista = new VBox(10);
+		
+		boxLista.setAlignment(Pos.CENTER);
+		boxLista.getChildren().add(new Label("Partito: " + l.getPartito().getNome()));
+		
+		for (Candidato c : l.getCandidati())
+			boxLista.getChildren().add(new Label(c.getNome() + " " + c.getCognome()));
+		
+		result.setGraphic(boxLista);
+		result.setToggleGroup(tg);
+		
+		GridPane.setMargin(result, new Insets(20, 20, 20, 20));
+		g.add(result, j, i);
+		if (j + 1 == 3) {
+			i++;
+			j = 0;
+		} else {
+			j++;
+		}
+	}
+	
+	private void setVotazioneCatConPreferenza() {
+		g = new GridPane();
+		g.setAlignment(Pos.CENTER);
+		g.setGridLinesVisible(true);
+		
+		tg = new ToggleGroup();
+		
+		List<Lista> liste = listaDao.getListe(sessione);
+		
+		int i = 0, j = 0;
+		for (Lista l : liste) 
+			categoricaConPreferenzaRadio(l, j, i);
 	}
 	
 	private void setVotazioneOrdinale() {
@@ -136,7 +167,7 @@ public class VotoSessioneController extends Controller {
 		domandaETasti.getChildren().add(new Label(sessione.getDomandaReferendum()));
 		
 		HBox tasti = new HBox(20);
-		ToggleGroup tg = new ToggleGroup();
+		tg = new ToggleGroup();
 		tasti.setAlignment(Pos.CENTER);
 		
 		RadioButton favorevole = new RadioButton("Favorevole");
@@ -150,6 +181,24 @@ public class VotoSessioneController extends Controller {
 	}
 	
 	public void avanti() {
-		
+		if (sessione.getStrategiaVoto().equals("r")) {
+			String rispostaSelezionata = ((RadioButton)tg.getSelectedToggle()).getText(); 
+			Voto v = new VotoReferendum(rispostaSelezionata.equals("Favorevole") ? true : false, sessione);
+			votazioneDao.save(v);
+			
+			Alert conferma = new Alert(AlertType.INFORMATION, "Voto Confermato");
+			conferma.showAndWait();
+			
+			changeView("views/Login.fxml");
+		}
+		else if (sessione.getStrategiaVoto().equals("c")) {
+			
+		}
+		else if (sessione.getStrategiaVoto().equals("p")) {
+			
+		}
+		else {
+			
+		}
 	}
 }

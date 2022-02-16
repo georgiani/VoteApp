@@ -1,13 +1,12 @@
 package svse.models.utente;
 
 public abstract class Utente {
-	private String nome, cognome, cf, comune;
+	private String nome, cognome, cf;
 	// TODO: da eliminare comune
-	public Utente(String n, String cg, String cf, String com) {
+	public Utente(String n, String cg, String cf) {
 		this.nome = n;
 		this.cognome = cg;
 		this.cf = cf;
-		this.comune = com;
 	}
 	
 	public String getNome() {
@@ -20,10 +19,6 @@ public abstract class Utente {
 	
 	public String getCF() {
 		return this.cf;
-	}
-	
-	public String getComune() {
-		return this.comune;
 	}
 	
 	public abstract boolean isGestore();

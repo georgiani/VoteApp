@@ -1,13 +1,25 @@
 package svse.models.voto;
 
+import svse.models.sessione.SessioneDiVoto;
+
 public class VotoReferendum extends Voto {
-	private String risposta;
+	private boolean risposta;
 	
-	public VotoReferendum(String risp) {
+	public VotoReferendum(boolean risp, SessioneDiVoto s) {
 		risposta = risp;
+		sessione = s;
 	}
 	
 	public boolean isFavorevole() {
-		return risposta.equals("si");
+		return risposta;
+	}
+
+	@Override
+	public String getTipo() {
+		return "r";
+	}
+	
+	public SessioneDiVoto getSessione() {
+		return this.sessione;
 	}
 }

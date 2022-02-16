@@ -49,7 +49,7 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 
 	public boolean registraElettore(Utente t, String pass) {
 		boolean result;
-		String q = "insert into Utente(nome, cognome, cf, ruolo, password, comune) values(?, ?, ?, ?, ?, ?)";
+		String q = "insert into Utente(nome, cognome, cf, ruolo, password,) values(?, ?, ?, ?, ?)";
 		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
 		try {
 			p.setString(1, t.getNome());
@@ -57,7 +57,6 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 			p.setString(3, t.getCF());
 			p.setString(4, t.isGestore() ? "g" : "e");
 			p.setString(5, sha1Hashing(pass));
-			p.setString(6, t.getComune());
 			
 			result = p.execute();
 		} catch (SQLException e) {
@@ -120,28 +119,6 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 		return results;
 	}
 	
-	public List<Utente> getAllElettori() {
-		List<Utente> results = new ArrayList<Utente>();
-		List<Utente> toFilter = getAll();
-		for (Utente u : toFilter) {
-			if (u.isElettore())
-				results.add(u);
-		}
-		
-		return results;
-	}
-
-	public List<Utente> getAllGestori() {
-		List<Utente> results = new ArrayList<Utente>();
-		List<Utente> toFilter = getAll();
-		for (Utente u : toFilter) {
-			if (u.isGestore())
-				results.add(u);
-		}
-		
-		return results;
-	}
-	
 	public void save(Utente t) {
 		// usiamo registraElettore per facilita
 		return;
@@ -169,19 +146,18 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 
 	private Utente getUtente(ResultSet res) {
 		Utente result = null;
-		String n, c, cf, r, com;
+		String n, c, cf, r;
 		
 		try {
 			n = res.getString(2);
 			c = res.getString(3);
 			cf = res.getString(4);
 			r = res.getString(5);
-			com = res.getString(7);
 			// vedi il tipo d'utente
 			if (r.equals("e"))
-				result = new Elettore(n, c, cf, com);
+				result = new Elettore(n, c, cf);
 			else
-				result = new Gestore(n, c, cf, com);
+				result = new Gestore(n, c, cf);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

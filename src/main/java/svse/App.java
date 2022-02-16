@@ -36,6 +36,7 @@ public class App extends Application {
 	public void stop() {
 		loginController.chiudiTotem();
 		DBManager.getInstance().close();
+		System.exit(0);
 	}
 	
 	public static Scene getAppScene() {

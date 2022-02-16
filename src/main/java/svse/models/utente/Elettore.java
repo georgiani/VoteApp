@@ -1,8 +1,8 @@
 package svse.models.utente;
 
 public class Elettore extends Utente {
-	public Elettore(String nome, String cognome, String cf, String comune) {
-		super(nome, cognome, cf, comune);
+	public Elettore(String nome, String cognome, String cf) {
+		super(nome, cognome, cf);
 	}
 
 	@Override
