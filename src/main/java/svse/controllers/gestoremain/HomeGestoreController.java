@@ -48,7 +48,7 @@ public class HomeGestoreController extends Controller implements IObserver {
 		HBox hmtr = new HBox(10);
 		
 		// titolo sessione
-		infoPane.getChildren().addAll(new Label(sessioneSelezionata), new Label(sessione.getNome()), new Label("Status: " + sessione.getPrettyStatus()), hss, hmtr);
+		infoPane.getChildren().addAll(new Label(sessione.getNome()), new Label("Status: " + sessione.getPrettyStatus()), hss, hmtr);
 		
 		Button startButton = new Button("Start");
 		Button stopButton = new Button("Stop");

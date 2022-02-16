@@ -5,13 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import ps.IObservableUDP;
-import ps.IObserver;
 import svse.data.DBManager;
 import svse.exceptions.DatabaseException;
-import svse.models.Totem;
-import svse.models.sessione.SessioneDiVoto;
+import svse.models.totem.Totem;
 
 public class TotemJDBCDAO implements ITotemDAO {
 	@Override

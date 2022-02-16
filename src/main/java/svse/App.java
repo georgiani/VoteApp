@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import svse.controllers.Controller;
 import svse.controllers.common.LoginController;
 import svse.data.DBManager;
 

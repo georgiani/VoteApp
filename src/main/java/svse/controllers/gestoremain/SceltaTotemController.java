@@ -7,16 +7,20 @@ import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import svse.controllers.Controller;
 import svse.dao.factory.DAOFactory;
 import svse.dao.sessione.ISessioneDAO;
 import svse.dao.totem.ITotemDAO;
-import svse.models.Totem;
 import svse.models.sessione.SessioneDiVoto;
+import svse.models.totem.Totem;
+import svse.models.utente.Elettore;
 import svse.models.utente.Gestore;
 
 public class SceltaTotemController extends Controller {
@@ -35,6 +39,9 @@ public class SceltaTotemController extends Controller {
 	
 	@FXML
 	private Button refreshButton;
+	
+	@FXML
+	private TextField cfElettore;
 	
 	private ITotemDAO totemDao;
 	private ISessioneDAO sessioneDao;
@@ -59,6 +66,13 @@ public class SceltaTotemController extends Controller {
 	}
 	
 	private void apriSessione() {
+		if (cfElettore.getText() == null || cfElettore.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.INFORMATION, "Inserire il codice fiscale dell'elettore!");
+			alert.showAndWait();
+			return;
+		}
+		
+		Elettore e = (Elettore)DAOFactory.getFactory().getUtenteDAOInstance().get(cfElettore.getText());
 		String[] parts = totemSelezionato.split(" ");
 		String ip = parts[0].trim();
 		int port = Integer.parseInt(parts[1].trim());
@@ -69,10 +83,10 @@ public class SceltaTotemController extends Controller {
 			byte[] toSend = Integer.toString(sessioneDao.getId(sessione)).getBytes();
 			DatagramPacket toTotem = new DatagramPacket(toSend, toSend.length, InetAddress.getByName(ip), port);
 			gestoreSocket.send(toTotem);
-			// prendere dal campo cf elettore e metterlo come votato nella tabella Votato (voti dao)
+			DAOFactory.getFactory().getVotazioneDAOInstance().confermaVotazione(e, sessione);
 			gestoreSocket.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ne) {
+			ne.printStackTrace();
 		}
 	}
 	

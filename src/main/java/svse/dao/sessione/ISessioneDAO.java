@@ -1,8 +1,10 @@
 package svse.dao.sessione;
 
 import svse.dao.IDAO;
-import svse.models.componentistica.Candidato;
 import svse.models.sessione.*;
+import svse.models.utente.Elettore;
+import svse.models.voto.Voto;
+
 import java.util.List;
 
 import ps.IObservable;
@@ -12,14 +14,8 @@ public interface ISessioneDAO extends IDAO<SessioneDiVoto>, IObservable {
 	public SessioneDiVoto getById(int id);
 	public void start(SessioneDiVoto s);
 	public void stop(SessioneDiVoto s);
+	public List<SessioneDiVoto> getAll(Elettore e);
 	
 	// metodi che potrebbero essere spostati in DAO specifiche
 	public List<Voto> getVoti(SessioneDiVoto s);
-	
-	public List<Lista> getListe(SessioneDiVoto s);
-	public void save(Lista l, SessioneDiVoto s);
-	public int getId(Lista l); // supponiamo nomi partiti come unici
-	
-	public void save(Candidato c, Lista l);
-	public int getId(Candidato c); // supponiamo unique(nome, cognome)
 }

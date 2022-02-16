@@ -3,6 +3,8 @@ package svse.controllers.elettoremain;
 import svse.controllers.Controller;
 import svse.dao.factory.DAOFactory;
 import svse.dao.sessione.ISessioneDAO;
+import svse.models.sessione.Candidato;
+import svse.models.sessione.Lista;
 import svse.models.sessione.SessioneDiVoto;
 import svse.models.utente.Elettore;
 
@@ -40,12 +42,14 @@ public class HomeElettoreController extends Controller implements IObserver {
     }
     
     public void apriSessione() {
-    	changeView("views/VotoSessione.fxml", sessioneSelezionata);
+    	DAOFactory.getFactory().getVotazioneDAOInstance().confermaVotazione(elettore, sessione);
+    	changeView("views/VotoSessione.fxml", sessioneDao.getId(sessione));
     }
     
     private void infoSessione(String newVal) {
     	sessioneSelezionata = newVal;
     	sessione = sessioneDao.get(sessioneSelezionata);
+    	System.out.println(sessione.getNome());
     	
     	// pulizia panello info
 		infoPane.getChildren().clear();
@@ -85,7 +89,7 @@ public class HomeElettoreController extends Controller implements IObserver {
 		sessioni.getItems().clear();
 		
 		// ricaricare sessioni
-		List<SessioneDiVoto> ses = sessioneDao.getAll();
+		List<SessioneDiVoto> ses = sessioneDao.getAll(elettore);
 		for (SessioneDiVoto s: ses)
 			sessioni.getItems().add(s.getNome());
 		

@@ -18,11 +18,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import svse.controllers.Controller;
+import svse.dao.candidato.ICandidatoDAO;
 import svse.dao.factory.DAOFactory;
+import svse.dao.lista.IListaDAO;
 import svse.dao.sessione.ISessioneDAO;
-import svse.models.componentistica.Candidato;
-import svse.models.componentistica.Partito;
+import svse.models.sessione.Candidato;
 import svse.models.sessione.Lista;
+import svse.models.sessione.Partito;
 import svse.models.sessione.SessioneDiVoto;
 import svse.models.utente.Gestore;
 
@@ -72,6 +74,8 @@ private Gestore gestore;
     private Map<String, List<Candidato>> liste;
     private String listaCorrente, chVoto, chVincita, chTipo;
     private ISessioneDAO sessioneDao;
+    private IListaDAO listaDao;
+    private ICandidatoDAO candidatoDao;
     
     @FXML
     public void avanti(ActionEvent e) {
@@ -81,14 +85,15 @@ private Gestore gestore;
         	if (alert.getResult() == ButtonType.OK) {
         		chTipo = (soloPartiti.isDisabled() ? null : (soloPartiti.isSelected() ? "p" : "c"));
         		nomeS = nomeSessione.getText();
-            	SessioneDiVoto s = new SessioneDiVoto(nomeS, chVincita, chVoto, "n", chTipo);
+        		// inserire anche modo per creare referendum
+            	SessioneDiVoto s = new SessioneDiVoto(nomeS, chVincita, chVoto, "n", chTipo, null);
             	sessioneDao.save(s); // insert sessione
             	for (Map.Entry<String, List<Candidato>> entry : liste.entrySet()) {
             		Lista l = new Lista(new Partito(entry.getKey()), entry.getValue());
-            		sessioneDao.save(l, s); // salvataggio lista in coerenza con la sua sessione
+            		listaDao.save(l, s); // salvataggio lista in coerenza con la sua sessione
             		
             		for (Candidato c : l.getCandidati())
-            			sessioneDao.save(c, l); // salvataggio candidati con riferimento alla lista
+            			candidatoDao.save(c, l); // salvataggio candidati con riferimento alla lista
             	}
         	}
         	
@@ -124,7 +129,7 @@ private Gestore gestore;
     		return false;
     	}
     	
-    	if (liste.keySet().isEmpty()) {
+    	if (liste.keySet().isEmpty() && !chVoto.equals("r")) {
     		Alert alert = new Alert(AlertType.INFORMATION, "Inserire delle liste!");
     		alert.showAndWait();
     		return false;
@@ -181,6 +186,8 @@ private Gestore gestore;
 		gestore = (Gestore)parameter;
 		liste = new HashMap<>();
 		sessioneDao = DAOFactory.getFactory().getSessioneDAOInstance();
+		candidatoDao = DAOFactory.getFactory().getCandidatoDAOInstance();
+		listaDao = DAOFactory.getFactory().getListaDAOInstance();
 		selezioneVoto.getItems().addAll("Ordinale", "Categorico", "Categorico Con Preferenze", "Referendum");
 		selezioneVincita.getItems().addAll("Maggioranza", "Maggioranza Assoluta", "Referendum Senza Quorum", "Referendum Con Quorum");
 		selezioneVoto.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> obs, String oldVal, String newVal) -> cambiaModVoto(newVal));

@@ -11,8 +11,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="svse.models.componentistica.Partito" project="VoteApp" 
-    file="/VoteApp/src/main/java/svse/models/componentistica/Partito.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="svse.models.sessione.Partito" project="VoteApp" 
+    file="/VoteApp/src/main/java/svse/models/sessione/Partito.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="119" width="141" x="1769" y="332"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -160,8 +160,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="svse.models.sessione.VotoReferendum" project="VoteApp" 
-    file="/VoteApp/src/main/java/svse/models/sessione/VotoReferendum.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="18" language="java" name="svse.models.voto.VotoReferendum" project="VoteApp" 
+    file="/VoteApp/src/main/java/svse/models/voto/VotoReferendum.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="119" width="156" x="44" y="332"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -223,17 +223,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="svse.controllers.gestoremain.RipielogoNuovaSessioneController" project="VoteApp" 
-    file="/VoteApp/src/main/java/svse/controllers/gestoremain/RipielogoNuovaSessioneController.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="4407" y="375"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="26" language="java" name="svse.controllers.gestoremain.ConfigurazioneNuovaSessioneController" 
+  <class id="25" language="java" name="svse.controllers.gestoremain.ConfigurazioneNuovaSessioneController" 
     project="VoteApp" 
     file="/VoteApp/src/main/java/svse/controllers/gestoremain/ConfigurazioneNuovaSessioneController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -244,7 +234,7 @@
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="svse.models.utente.Utente" project="VoteApp" 
+  <class id="26" language="java" name="svse.models.utente.Utente" project="VoteApp" 
     file="/VoteApp/src/main/java/svse/models/utente/Utente.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="263" width="205" x="2686" y="332"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -253,7 +243,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="svse.controllers.gestoremain.VisualizzaRisultatiController" project="VoteApp" 
+  <class id="27" language="java" name="svse.controllers.gestoremain.VisualizzaRisultatiController" project="VoteApp" 
     file="/VoteApp/src/main/java/svse/controllers/gestoremain/VisualizzaRisultatiController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="4669" y="377"/>    
@@ -263,7 +253,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="svse.models.risultati.RisultatoReferendum" project="VoteApp" 
+  <class id="28" language="java" name="svse.models.risultati.RisultatoReferendum" project="VoteApp" 
     file="/VoteApp/src/main/java/svse/models/risultati/RisultatoReferendum.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="119" width="179" x="666" y="332"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -272,7 +262,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="svse.models.sessione_vincita_strategies.MaggioranzaAssolutaStrategy" 
+  <class id="29" language="java" name="svse.models.sessione_vincita_strategies.MaggioranzaAssolutaStrategy" 
     project="VoteApp" 
     file="/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/MaggioranzaAssolutaStrategy.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -283,7 +273,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="svse.App" project="VoteApp" file="/VoteApp/src/main/java/svse/App.java" 
+  <class id="30" language="java" name="svse.App" project="VoteApp" file="/VoteApp/src/main/java/svse/App.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="173" width="144" x="192" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -292,7 +282,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="svse.models.sessione_vincita_strategies.VincitaStrategy" project="VoteApp" 
+  <class id="31" language="java" name="svse.models.sessione_vincita_strategies.VincitaStrategy" project="VoteApp" 
     file="/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/VincitaStrategy.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="119" width="211" x="3327" y="1298"/>    
@@ -302,8 +292,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="33" language="java" name="svse.models.sessione.Voto" project="VoteApp" 
-    file="/VoteApp/src/main/java/svse/models/sessione/Voto.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="32" language="java" name="svse.models.voto.Voto" project="VoteApp" 
+    file="/VoteApp/src/main/java/svse/models/voto/Voto.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="83" width="108" x="44" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -311,8 +301,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="34" language="java" name="svse.models.componentistica.Candidato" project="VoteApp" 
-    file="/VoteApp/src/main/java/svse/models/componentistica/Candidato.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="33" language="java" name="svse.models.sessione.Candidato" project="VoteApp" 
+    file="/VoteApp/src/main/java/svse/models/sessione/Candidato.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="155" width="155" x="1574" y="332"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -320,7 +310,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="35" language="java" name="svse.controllers.elettoremain.ConfermaVotoSessioneController" project="VoteApp" 
+  <class id="34" language="java" name="svse.controllers.elettoremain.ConfermaVotoSessioneController" project="VoteApp" 
     file="/VoteApp/src/main/java/svse/controllers/elettoremain/ConfermaVotoSessioneController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="3132" y="362"/>    
@@ -330,7 +320,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="36" language="java" name="svse.dao.IDAO" project="VoteApp" 
+  <interface id="35" language="java" name="svse.dao.IDAO" project="VoteApp" 
     file="/VoteApp/src/main/java/svse/dao/IDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="155" width="114" x="512" y="332"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -339,7 +329,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="37" language="java" name="svse.dao.factory.DAOFactory" project="VoteApp" 
+  <class id="36" language="java" name="svse.dao.factory.DAOFactory" project="VoteApp" 
     file="/VoteApp/src/main/java/svse/dao/factory/DAOFactory.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="137" width="254" x="1950" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -348,7 +338,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="38" language="java" name="svse.models.risultati.RisultatoPartito" project="VoteApp" 
+  <class id="37" language="java" name="svse.models.risultati.RisultatoPartito" project="VoteApp" 
     file="/VoteApp/src/main/java/svse/models/risultati/RisultatoPartito.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1062" y="404"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -357,7 +347,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="39" language="java" name="svse.models.sessione_vincita_strategies.ReferendumConQuorumStrategy" 
+  <class id="38" language="java" name="svse.models.sessione_vincita_strategies.ReferendumConQuorumStrategy" 
     project="VoteApp" 
     file="/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/ReferendumConQuorumStrategy.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -368,7 +358,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="40" language="java" name="svse.models.sessione_vincita_strategies.ReferendumSenzaQuorumStrategy" 
+  <class id="39" language="java" name="svse.models.sessione_vincita_strategies.ReferendumSenzaQuorumStrategy" 
     project="VoteApp" 
     file="/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/ReferendumSenzaQuorumStrategy.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -379,323 +369,386 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="41">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="42" name="daoSessione"/>      
-      <multiplicity id="43" minimum="0" maximum="1"/>    
+  <association id="40">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="41" name="candidati">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="42" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="33" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="44">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="27"/>  
-  </generalization>  
-  <generalization id="45">    
-    <end type="SOURCE" refId="40"/>    
-    <end type="TARGET" refId="32"/>  
-  </generalization>  
-  <association id="46">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="47" name="instance"/>      
-      <multiplicity id="48" minimum="0" maximum="1"/>    
+  <association id="43">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="44" name="a">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="45" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="31" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="49">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="50" name="elettore"/>      
-      <multiplicity id="51" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="52">    
-    <bendpoint x="3867" y="286"/>    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="12"/>  
+  <generalization id="46">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="31"/>  
   </generalization>  
-  <generalization id="53">    
+  <generalization id="47">    
     <bendpoint x="3362" y="286"/>    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="12"/>  
   </generalization>  
-  <association id="54">    
-    <bendpoint x="3873" y="608"/>    
-    <end type="SOURCE" refId="26" navigable="false">      
-      <attribute id="55" name="sessioneDao"/>      
-      <multiplicity id="56" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="57">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="12"/>  
+  <generalization id="48">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="31"/>  
   </generalization>  
-  <generalization id="58">    
-    <bendpoint x="4897" y="274"/>    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <association id="59">    
-    <end type="SOURCE" refId="26" navigable="false">      
-      <attribute id="60" name="gestore"/>      
-      <multiplicity id="61" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="62">    
-    <bendpoint x="4406" y="284"/>    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <generalization id="63">    
-    <end type="SOURCE" refId="39"/>    
-    <end type="TARGET" refId="32"/>  
-  </generalization>  
-  <generalization id="64">    
-    <bendpoint x="4147" y="283"/>    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <generalization id="65">    
-    <end type="SOURCE" refId="30"/>    
-    <end type="TARGET" refId="32"/>  
-  </generalization>  
-  <association id="66">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="67" name="sessione"/>      
-      <multiplicity id="68" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="69">    
-    <end type="SOURCE" refId="32" navigable="false">      
-      <attribute id="70" name="m"/>      
-      <multiplicity id="71" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="32" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="72">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="19"/>  
-  </realization>  
-  <association id="73">    
-    <end type="SOURCE" refId="32" navigable="false">      
-      <attribute id="74" name="a"/>      
-      <multiplicity id="75" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="32" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="76">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <association id="77">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="78" name="elettore"/>      
-      <multiplicity id="79" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="80">    
+  <generalization id="49">    
     <bendpoint x="3581" y="285"/>    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="12"/>  
   </generalization>  
-  <generalization id="81">    
-    <end type="SOURCE" refId="38"/>    
+  <association id="50">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="51" name="sessioneDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="52" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="53">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <generalization id="54">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <association id="55">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="56" name="strategiaVincita">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="57" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="59" name="sessioneDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="60" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="61">    
+    <end type="SOURCE" refId="37"/>    
     <end type="TARGET" refId="13"/>  
   </generalization>  
-  <association id="82">    
+  <generalization id="62">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="35"/>  
+  </generalization>  
+  <generalization id="63">    
+    <bendpoint x="4147" y="283"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <generalization id="64">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <association id="65">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="66" name="q">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="67" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="68">    
+    <bendpoint x="3867" y="286"/>    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <generalization id="69">    
+    <bendpoint x="4666" y="287"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <realization id="70">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <association id="71">    
     <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="83" name="partitoAssociato"/>      
-      <multiplicity id="84" minimum="0" maximum="1"/>    
+      <attribute id="72" name="partitoAssociato">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="73" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="85">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="86" name="sessione"/>      
-      <multiplicity id="87" minimum="0" maximum="1"/>    
+  <association id="74">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="75" name="factory">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="76" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="36" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="88">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="89" name="gestore"/>      
-      <multiplicity id="90" minimum="0" maximum="1"/>    
+  <association id="77">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="78" name="gestore">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="79" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="91">    
-    <bendpoint x="4666" y="287"/>    
-    <end type="SOURCE" refId="28"/>    
+  <generalization id="80">    
+    <end type="SOURCE" refId="24"/>    
     <end type="TARGET" refId="12"/>  
   </generalization>  
-  <generalization id="92">    
-    <bendpoint x="1200" y="332"/>    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="13"/>  
+  <association id="81">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="82" name="elettore">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="83" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="84">    
+    <bendpoint x="4897" y="274"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="12"/>  
   </generalization>  
+  <generalization id="85">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="35"/>  
+  </generalization>  
+  <association id="86">    
+    <bendpoint x="3873" y="608"/>    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="87" name="sessioneDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="88" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="89">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <association id="90">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="91" name="r">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="92" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <association id="93">    
-    <end type="SOURCE" refId="38" navigable="false">      
-      <attribute id="94" name="componenti"/>      
-      <multiplicity id="95" minimum="0" maximum="2147483647"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="94" name="componenti">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="95" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <generalization id="96">    
-    <end type="SOURCE" refId="29"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="31"/>  
+  </generalization>  
+  <association id="97">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="98" name="gestore">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="99" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="100">    
+    <bendpoint x="1200" y="332"/>    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="13"/>  
   </generalization>  
-  <generalization id="97">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="37"/>  
-  </generalization>  
-  <association id="98">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="99" name="sessioneDao"/>      
-      <multiplicity id="100" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <association id="101">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="102" name="gestore"/>      
-      <multiplicity id="103" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="102" name="sessione">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="103" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="104">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="105" name="daoUtente"/>      
-      <multiplicity id="106" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="107">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <association id="108">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="109" name="candidati"/>      
-      <multiplicity id="110" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="34" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="111">    
+  <generalization id="104">    
     <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="33"/>  
-  </generalization>  
-  <association id="112">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="113" name="sessioneDao"/>      
-      <multiplicity id="114" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="115">    
-    <end type="SOURCE" refId="28" navigable="false">      
-      <attribute id="116" name="gestore"/>      
-      <multiplicity id="117" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="118">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="119" name="utenteDAO"/>      
-      <multiplicity id="120" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="121">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <association id="122">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="123" name="sessioneDao"/>      
-      <multiplicity id="124" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="125">    
-    <end type="SOURCE" refId="15"/>    
     <end type="TARGET" refId="32"/>  
   </generalization>  
-  <generalization id="126">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="27"/>  
-  </generalization>  
-  <association id="127">    
+  <association id="105">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="106" name="daoSessione">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="107" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="108">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="128" name="gestore"/>      
-      <multiplicity id="129" minimum="0" maximum="1"/>    
+      <attribute id="109" name="gestore">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="110" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="130">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="131" name="strategiaVincita"/>      
-      <multiplicity id="132" minimum="0" maximum="1"/>    
+  <association id="111">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="112" name="daoUtente">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="113" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="32" navigable="true"/>    
+    <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="133">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="6"/>  
-  </realization>  
-  <association id="134">    
-    <end type="SOURCE" refId="32" navigable="false">      
-      <attribute id="135" name="r"/>      
-      <multiplicity id="136" minimum="0" maximum="1"/>    
+  <association id="114">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="115" name="m">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="116" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="32" navigable="true"/>    
+    <end type="TARGET" refId="31" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="137">    
-    <end type="SOURCE" refId="32" navigable="false">      
-      <attribute id="138" name="q"/>      
-      <multiplicity id="139" minimum="0" maximum="1"/>    
+  <association id="117">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="118" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="119" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="32" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="140">    
-    <end type="SOURCE" refId="37" navigable="false">      
-      <attribute id="141" name="factory"/>      
-      <multiplicity id="142" minimum="0" maximum="1"/>    
+  <association id="120">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="121" name="gestore">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="122" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="37" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="143">    
-    <bendpoint x="3134" y="297"/>    
-    <end type="SOURCE" refId="35"/>    
+  <generalization id="123">    
+    <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <association id="124">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="125" name="utenteDAO">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="126" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="127">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="128" name="sessioneDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="129" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="130">    
+    <bendpoint x="3134" y="297"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <generalization id="131">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <generalization id="132">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="26"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

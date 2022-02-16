@@ -4,6 +4,7 @@ import java.util.List;
 
 import svse.models.risultati.Risultato;
 import svse.models.sessione_vincita_strategies.VincitaStrategy;
+import svse.models.voto.Voto;
 
 
 public class SessioneDiVoto {
@@ -13,14 +14,16 @@ public class SessioneDiVoto {
 	private String strategiaVoto;
 	private String stato = null;
 	private String tipo = null;
+	private String domandaReferendum;
 	
-	public SessioneDiVoto(String n, String vincita, String voto, String status, String t) {
+	public SessioneDiVoto(String n, String vincita, String voto, String status, String t, String q) {
 		nomeSessione = n;
 		strategiaVincitaS = vincita;
 		strategiaVincita = VincitaStrategy.getStrategy(vincita);
 		strategiaVoto = voto;
 		stato = status;
 		tipo = t;
+		domandaReferendum = q;
 	}
 	
 	public String getNome() {
@@ -67,6 +70,10 @@ public class SessioneDiVoto {
 	
 	public String getOrdinaleCategoricoType() {
 		return (strategiaVoto.equals("o") || strategiaVoto.equals("c")) ? tipo : null;
+	}
+	
+	public String getDomandaReferendum() {
+		return this.domandaReferendum;
 	}
 	
 }

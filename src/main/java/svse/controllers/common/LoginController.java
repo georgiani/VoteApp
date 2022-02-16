@@ -11,8 +11,8 @@ import svse.dao.factory.DAOFactory;
 import svse.dao.totem.ITotemDAO;
 import svse.dao.utente.IUtenteDAO;
 import svse.exceptions.NotFoundException;
-import svse.models.GestoreTotem;
-import svse.models.Totem;
+import svse.models.totem.GestoreTotem;
+import svse.models.totem.Totem;
 import svse.models.utente.Elettore;
 import svse.models.utente.Gestore;
 import svse.models.utente.Utente;
@@ -123,14 +123,15 @@ public class LoginController extends Controller {
 			totemSocket = new DatagramSocket(0);
 			thisTotem = new Totem(InetAddress.getLocalHost().getHostAddress(), totemSocket.getLocalPort());
 			totemDAO.save(thisTotem);
-			
-			gestioneTotem = new GestoreTotem(this, totemSocket);
-			gestioneTotem.start();
+			if (gestioneTotem == null) {
+				gestioneTotem = new GestoreTotem(this, totemSocket);
+				gestioneTotem.start();
+			} 
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void chiudiTotem() {
 		totemDAO.delete(thisTotem);
 		gestioneTotem.interrupt();

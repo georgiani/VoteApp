@@ -4,8 +4,8 @@ import java.util.List;
 
 import svse.models.risultati.Risultato;
 import svse.models.risultati.RisultatoReferendum;
-import svse.models.sessione.Voto;
-import svse.models.sessione.VotoReferendum;
+import svse.models.voto.Voto;
+import svse.models.voto.VotoReferendum;
 
 public class ReferendumSenzaQuorumStrategy extends VincitaStrategy {
 

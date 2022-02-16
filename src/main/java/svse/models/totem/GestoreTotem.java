@@ -1,8 +1,7 @@
-package svse.models;
+package svse.models.totem;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-
 import svse.controllers.common.LoginController;
 
 public class GestoreTotem extends Thread {
@@ -20,14 +19,12 @@ public class GestoreTotem extends Thread {
 		
 		DatagramPacket dp = new DatagramPacket(buffer, dim_buffer);
 		try {
-			System.out.println("Prima di receive");
 			ds.receive(dp);
 			String risp = new String(buffer, 0, buffer.length);
 			int id = Integer.parseInt(risp.trim());
 			c.passaInVoto(id);
 		} catch (Exception e) {
-			System.out.println("");
+			System.out.println(e);
 		}
-		
 	}
 }

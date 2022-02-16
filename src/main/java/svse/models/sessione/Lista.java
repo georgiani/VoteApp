@@ -1,10 +1,6 @@
 package svse.models.sessione;
 
 import java.util.List;
-
-import svse.models.componentistica.Candidato;
-import svse.models.componentistica.Partito;
-
 import java.util.ArrayList;
 
 public class Lista {

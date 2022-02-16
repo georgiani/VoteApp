@@ -188,6 +188,28 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 		
 		return result;
 	}
+	
+	@Override
+	public int getId(Utente u) {
+		String q = "select id from Utente where cf = ?;";
+		
+		// prepara e gira la query
+		int result = 0;
+		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+		try {
+			p.setString(1, u.getCF());
+			
+			ResultSet res = p.executeQuery();
+			
+			// prendi i risultati
+			res.next();
+			result = res.getInt(1);
+		} catch (SQLException e) {
+			throw new DatabaseException("Problemi con la base dati, riprovare!");
+		}
+		
+		return result;
+	}
 
 	@Override
 	public void addObserver(IObserver o) {

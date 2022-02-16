@@ -4,7 +4,7 @@ import java.util.List;
 
 import svse.models.risultati.Risultato;
 import svse.models.sessione.SessioneDiVoto;
-import svse.models.sessione.Voto;
+import svse.models.voto.Voto;
 
 public abstract class VincitaStrategy {
 	private static VincitaStrategy m = new MaggioranzaStrategy();

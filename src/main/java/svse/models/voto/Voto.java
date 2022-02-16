@@ -1,4 +1,4 @@
-package svse.models.sessione;
+package svse.models.voto;
 
 public abstract class Voto {
 	

@@ -1,4 +1,4 @@
-package svse.models.componentistica;
+package svse.models.sessione;
 
 public class Partito {
 	private String nome;

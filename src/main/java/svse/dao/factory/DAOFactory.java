@@ -1,8 +1,11 @@
 package svse.dao.factory;
 
+import svse.dao.candidato.ICandidatoDAO;
+import svse.dao.lista.IListaDAO;
 import svse.dao.sessione.ISessioneDAO;
 import svse.dao.totem.ITotemDAO;
 import svse.dao.utente.IUtenteDAO;
+import svse.dao.votazione.IVotazioneDAO;
 
 // abstract factory che si occupa di creare piu famiglie di DAO.
 // Nel nostro caso per ogni famiglia abbiamo un solo tipo di DAO, JDBC.
@@ -21,4 +24,7 @@ public abstract class DAOFactory {
 	public abstract IUtenteDAO getUtenteDAOInstance();
 	public abstract ISessioneDAO getSessioneDAOInstance();
 	public abstract ITotemDAO getTotemDAOInstance();
+	public abstract ICandidatoDAO getCandidatoDAOInstance();
+	public abstract IListaDAO getListaDAOInstance();
+	public abstract IVotazioneDAO getVotazioneDAOInstance();
 }

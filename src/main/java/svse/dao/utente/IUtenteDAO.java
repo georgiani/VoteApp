@@ -13,4 +13,5 @@ public interface IUtenteDAO extends IDAO<Utente>, IObservable {
 	public List<Utente> getAllElettori();
 	public List<Utente> getAllGestori();
 	public boolean registraElettore(Utente t, String pass);
+	public int getId(Utente u);
 }
