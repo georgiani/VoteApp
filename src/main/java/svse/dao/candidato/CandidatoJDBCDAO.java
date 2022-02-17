@@ -8,42 +8,13 @@ import java.util.List;
 
 import svse.dao.factory.DAOFactory;
 import svse.data.DBManager;
+import svse.exceptions.CandidatoNotFoundException;
 import svse.exceptions.DatabaseException;
 import svse.models.sessione.Candidato;
 import svse.models.sessione.Lista;
 import svse.models.sessione.Partito;
 
 public class CandidatoJDBCDAO implements ICandidatoDAO {
-
-	@Override
-	public Candidato get(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Candidato> getAll() {
-		// non usato
-		return null;
-	}
-
-	@Override
-	public void save(Candidato t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(Candidato t, Candidato u) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Candidato t) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public List<Candidato> getCandidati(Partito partito) {
@@ -57,12 +28,13 @@ public class CandidatoJDBCDAO implements ICandidatoDAO {
 			p.setInt(1, id);
 			ResultSet res = p.executeQuery();
 			
-			// TODO: controllo 0 candidati
+			if (!res.isBeforeFirst())
+				return new ArrayList<Candidato>(); // vuoto
 				
 			while (res.next())
 				result.add(getCandidatoFromResult(res));
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: getCandidati");
 		}
 			
 		return result;
@@ -75,10 +47,9 @@ public class CandidatoJDBCDAO implements ICandidatoDAO {
 		try {
 			n = res.getString(2);
 			c = res.getString(3);
-			
 			result = new Candidato(n, c);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: getCandidatoFromResult");
 		}
 		
 		return result;
@@ -97,7 +68,7 @@ public class CandidatoJDBCDAO implements ICandidatoDAO {
 			p.setInt(3, id); // id_lista
 			p.execute();
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Candidato");
 		}
 	}
 
@@ -113,13 +84,14 @@ public class CandidatoJDBCDAO implements ICandidatoDAO {
 			p.setString(2, c.getCognome());
 			ResultSet res = p.executeQuery();
 				
-			// TODO: controllo 0 liste
+			if (!res.isBeforeFirst())
+				throw new CandidatoNotFoundException("Candidato non esiste!");
 			
 			// prendi i risultati
 			while (res.next())
 				result = res.getInt(1);
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: getId");
 		}
 			
 		return result;
@@ -137,16 +109,44 @@ public class CandidatoJDBCDAO implements ICandidatoDAO {
 			p.setString(2, c.getCognome());
 			ResultSet res = p.executeQuery();
 				
-			// TODO: controllo 0 liste
+			if (!res.isBeforeFirst())
+				throw new CandidatoNotFoundException("Candidato non esiste!");
 			
 			// prendi i risultati
 			while (res.next())
 				result = res.getInt(1);
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: getIdLista");
 		}
 			
 		return result;
 	}
 
+	@Override
+	public Candidato get(String id) {
+		// non usato
+		return null;
+	}
+
+	@Override
+	public List<Candidato> getAll() {
+		// non usato
+		return null;
+	}
+
+	@Override
+	public void save(Candidato t) {
+		// non usato
+		
+	}
+
+	@Override
+	public void update(Candidato t, Candidato u) {
+		// non usato
+	}
+
+	@Override
+	public void delete(Candidato t) {
+		// non usato
+	}
 }

@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.sql.*;
 import java.util.List;
 
+import logger.ProjectLogger;
 import ps.IObserver;
 
 import java.util.ArrayList;
@@ -34,14 +35,14 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 			
 			// nessun risultato
 			if (!res.isBeforeFirst()) {
-				throw new NotFoundException("Utente con le credenziali inserite non trovato!");
+				throw new UtenteNotFoundException("Utente con le credenziali inserite non trovato!");
 			}
 			
 			// prendi i risultati
 			res.next();
 			result = getUtente(res);
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: login");
 		}
 		
 		return result;
@@ -49,7 +50,7 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 
 	public boolean registraElettore(Utente t, String pass) {
 		boolean result;
-		String q = "insert into Utente(nome, cognome, cf, ruolo, password,) values(?, ?, ?, ?, ?)";
+		String q = "insert into Utente(nome, cognome, cf, ruolo, password) values(?, ?, ?, ?, ?)";
 		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
 		try {
 			p.setString(1, t.getNome());
@@ -60,21 +61,10 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 			
 			result = p.execute();
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: registraElettore");
 		}
 		
 		return result;
-	}
-
-	public void delete(Utente t) {
-		String q = "delete * from Utente where cf = ?;";
-		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
-		try {
-			p.setString(1, t.getCF());
-			p.execute();
-		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
-		}
 	}
 
 	public Utente get(String cf) {
@@ -90,14 +80,14 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 			
 			// nessun risultato
 			if (!res.isBeforeFirst()) {
-				throw new NotFoundException("Utente con questo codice fiscale non trovato!");
+				throw new UtenteNotFoundException("Utente con questo codice fiscale non trovato!");
 			}
 			
 			// prendi i risultati
 			res.next();
 			result = getUtente(res);
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: get");
 		}
 		
 		return result;
@@ -113,7 +103,7 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 			while(res.next())
 				results.add(getUtente(res));
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: getAll");
 		}
 		
 		return results;
@@ -138,7 +128,7 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 		    digest.update(password.getBytes("utf8"));
 		    result = String.format("%040x", new BigInteger(1, digest.digest()));
 		} catch (Exception e) {
-			e.printStackTrace();
+			ProjectLogger.getInstance().log("e", e.getMessage());
 		}
 		
 		return result;
@@ -159,7 +149,7 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 			else
 				result = new Gestore(n, c, cf);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: getUtente");
 		}
 		
 		return result;
@@ -177,31 +167,20 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 			
 			ResultSet res = p.executeQuery();
 			
+			if (!res.isBeforeFirst())
+				throw new UtenteNotFoundException("Utente non esiste!");
+			
 			// prendi i risultati
 			res.next();
 			result = res.getInt(1);
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: getId");
 		}
 		
 		return result;
 	}
-
-	@Override
-	public void addObserver(IObserver o) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeObserver(IObserver o) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyObservers() {
-		// TODO Auto-generated method stub
-		
+	
+	public void delete(Utente t) {
+		// non usato
 	}
 }

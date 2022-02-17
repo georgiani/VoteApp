@@ -70,6 +70,9 @@ private Gestore gestore;
     @FXML
     private CheckBox soloPartiti;
     
+    @FXML
+    private TextField domandaRef;
+    
     private String nomeS;
     private Map<String, List<Candidato>> liste;
     private String listaCorrente, chVoto, chVincita, chTipo;
@@ -86,7 +89,7 @@ private Gestore gestore;
         		chTipo = (soloPartiti.isDisabled() ? null : (soloPartiti.isSelected() ? "p" : "c"));
         		nomeS = nomeSessione.getText();
         		// inserire anche modo per creare referendum
-            	SessioneDiVoto s = new SessioneDiVoto(nomeS, chVincita, chVoto, "n", chTipo, null);
+            	SessioneDiVoto s = new SessioneDiVoto(nomeS, chVincita, chVoto, "n", chTipo, domandaRef.getText());
             	sessioneDao.save(s); // insert sessione
             	for (Map.Entry<String, List<Candidato>> entry : liste.entrySet()) {
             		Lista l = new Lista(new Partito(entry.getKey()), entry.getValue());
@@ -131,6 +134,12 @@ private Gestore gestore;
     	
     	if (liste.keySet().isEmpty() && !chVoto.equals("r")) {
     		Alert alert = new Alert(AlertType.INFORMATION, "Inserire delle liste!");
+    		alert.showAndWait();
+    		return false;
+    	}
+    	
+    	if (isEmptyOrNull(domandaRef.getText()) && chVoto.equals("r")) {
+    		Alert alert = new Alert(AlertType.INFORMATION, "Inserire la domanda del referendum!");
     		alert.showAndWait();
     		return false;
     	}

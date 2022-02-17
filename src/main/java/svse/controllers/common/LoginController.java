@@ -4,11 +4,12 @@ import java.net.InetAddress;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import logger.ProjectLogger;
 import svse.controllers.Controller;
 import svse.dao.factory.DAOFactory;
 import svse.dao.totem.ITotemDAO;
 import svse.dao.utente.IUtenteDAO;
-import svse.exceptions.NotFoundException;
+import svse.exceptions.UtenteNotFoundException;
 import svse.models.totem.GestoreTotem;
 import svse.models.totem.Totem;
 import svse.models.utente.Elettore;
@@ -78,7 +79,7 @@ public class LoginController extends Controller {
 				changeView("views/HomeElettore.fxml", e);
 			}
 			else showErroreElettore();
-		} catch (NotFoundException nfe) {
+		} catch (UtenteNotFoundException nfe) {
 			showErroreElettore();
 		}
 	}
@@ -99,7 +100,7 @@ public class LoginController extends Controller {
 				changeView("views/HomeGestore.fxml", g);
 			}
 			else showErroreGestore();
-		} catch (NotFoundException nfe) {
+		} catch (UtenteNotFoundException nfe) {
 			showErroreGestore();
 		}
 	}
@@ -119,9 +120,7 @@ public class LoginController extends Controller {
 	public void accendiTotem() {
 		try {
 			totemSocket = new DatagramSocket(0);
-			System.out.println(totemSocket.getLocalPort());
 			thisTotem = new Totem(InetAddress.getLocalHost().getHostAddress(), totemSocket.getLocalPort());
-			System.out.println("Nuovo Totem " + thisTotem.getPort());
 			
 			totemDAO.save(thisTotem);
 			if (gestioneTotem == null) {
@@ -129,7 +128,7 @@ public class LoginController extends Controller {
 				gestioneTotem.start();
 			} 
 		} catch(Exception e) {
-			e.printStackTrace();
+			ProjectLogger.getInstance().log("e", e.getMessage());
 		}
 	}
 

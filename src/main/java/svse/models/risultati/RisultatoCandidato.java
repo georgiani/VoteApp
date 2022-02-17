@@ -1,21 +1,17 @@
 package svse.models.risultati;
 
+import java.util.HashMap;
+import java.util.Map;
 import svse.models.sessione.Candidato;
 
 public class RisultatoCandidato extends Risultato {
-	private Candidato c;
-	private int numeroVoti;
+	private Map<Candidato, Integer> risultati;
 	
-	public RisultatoCandidato(Candidato candidato, int nr) {
-		this.c = candidato;
-		this.numeroVoti = nr;
+	public RisultatoCandidato(Map<Candidato, Integer> m) {
+		this.risultati = new HashMap<Candidato, Integer>(m);
 	}
 	
-	public Candidato getCandidato() {
-		return this.c;
-	}
-	
-	public int getNumeroVoti() {
-		return this.numeroVoti;
+	public Map<Candidato, Integer> getRisultati() {
+		return new HashMap<Candidato, Integer>(this.risultati);
 	}
 }

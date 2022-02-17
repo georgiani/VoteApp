@@ -2,6 +2,8 @@ package svse.controllers.elettoremain;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,10 +35,10 @@ public class VotoSessioneController extends Controller {
 	private IListaDAO listaDao;
 	private IVotazioneDAO votazioneDao;
 	private ToggleGroup tg;
-	private GridPane g;
 	
 	// ordinale
 	List<Pair<TextField, Partecipante>> ordini;
+	Pair<Partito, List<CheckBox>> scelta;
 	
 	@Override
 	public void init(Object parameter) {
@@ -62,7 +64,7 @@ public class VotoSessioneController extends Controller {
 	}
 	
 	private void setVotazioneCategorica() {
-		g = new GridPane();
+		GridPane g = new GridPane();
 		g.setAlignment(Pos.CENTER);
 		g.setGridLinesVisible(true);
 		tg = new ToggleGroup();
@@ -112,47 +114,44 @@ public class VotoSessioneController extends Controller {
 	}
 	
 	private void setVotazioneCatConPreferenza() {	
-		g = new GridPane();
-		g.setAlignment(Pos.CENTER);
-		g.setGridLinesVisible(true);
 		tg = new ToggleGroup();
 		
-		List<Lista> liste = listaDao.getListe(sessione);
+		VBox divisione = new VBox(10);
+		divisione.setAlignment(Pos.CENTER);
+		HBox partiti = new HBox(10);
+		partiti.setAlignment(Pos.CENTER);
+		VBox checkboxPane = new VBox(10);
+		checkboxPane.setAlignment(Pos.CENTER);
 		
-		int i = 0, j = 0;
-		
-		for (Lista l : liste) {
-			RadioButton lista = new RadioButton();
-			lista.setToggleGroup(tg);
-			lista.setUserData(l.getPartito());
+		divisione.getChildren().addAll(partiti, checkboxPane);
 				
-			
-			VBox boxLista = new VBox(10);
-			boxLista.setAlignment(Pos.CENTER);
-			boxLista.getChildren().add(new Label("Partito: " + l.getPartito().getNome()));
-			
-			for (Candidato c : l.getCandidati()) {
-				HBox h = new HBox(10);
-				h.setAlignment(Pos.CENTER);
-				TextField t = new TextField();
-				
-				h.getChildren().add(t);
-				h.getChildren().add(new Label(c.getNome() + " " + c.getCognome()));
-				
-				h.setUserData(c); // assoccio candidato a questo checkbox
-			}
-
-			lista.setGraphic(boxLista);
-			lista.setUserData(boxLista.getChildren()); // lista di candidati selezionabili
-				
-			GridPane.setMargin(lista, new Insets(20, 20, 20, 20));
-			g.add(lista, j, i);
+		for (Lista l : listaDao.getListe(sessione)) {
+			RadioButton partito = new RadioButton(l.getPartito().getNome());
+			partito.setToggleGroup(tg);
+			partito.setUserData(l);
+			partiti.getChildren().add(partito);
 		}
-		scrollPane.setContent(g);
+		
+		tg.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> obs, Toggle oldT, Toggle newT) -> {
+			if (tg.getSelectedToggle() != null) {
+				checkboxPane.getChildren().clear();
+				Lista l = (Lista)tg.getSelectedToggle().getUserData();
+				
+				scelta = new Pair<Partito, List<CheckBox>>(l.getPartito(), new ArrayList<CheckBox>());
+				for (Candidato c : l.getCandidati()) {
+					CheckBox check = new CheckBox(c.getNome() + " " + c.getCognome());
+					check.setUserData(c);
+					checkboxPane.getChildren().add(check);
+					scelta.getValue().add(check);
+				}
+			}
+		});
+		
+		scrollPane.setContent(divisione);
 	}
 	
 	private void setVotazioneOrdinale() {
-		g = new GridPane();
+		GridPane g = new GridPane();
 		g.setAlignment(Pos.CENTER);
 		g.setGridLinesVisible(true);
 		tg = new ToggleGroup();
@@ -272,7 +271,16 @@ public class VotoSessioneController extends Controller {
 					}
 				}	
 			} else if (sessione.getStrategiaVoto().equals("p")) {
-				// da fare
+				List<Candidato> lst = new ArrayList<Candidato>();
+				for (CheckBox x : scelta.getValue()) {
+					if (x.isSelected()) {
+						lst.add((Candidato)x.getUserData());
+					}
+				}
+				VotoCategoricoConPreferenze v = new VotoCategoricoConPreferenze(scelta.getKey(), lst, sessione);
+				
+				votazioneDao.save(v);
+				confermaVoto();
 			} else {
 				VotoOrdinale v = new VotoOrdinale(sessione);
 				for (Pair<TextField, Partecipante> p : ordini) {

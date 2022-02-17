@@ -13,13 +13,7 @@ public class ReferendumSenzaQuorumStrategy extends VincitaStrategy {
 
 	@Override
 	public Risultato getVincitore(SessioneDiVoto s) {
-		List<Voto> v = DAOFactory.getFactory().getVotazioneDAOInstance().getAll(s);
-		int si = 0, no = 0;
-		for (Voto voto : v)
-			si += (((VotoReferendum)voto).isFavorevole() ? 1 : 0);
-		
-		no = v.size() - si;
-		return new RisultatoReferendum(si > no);
+		return null;
 	}
 
 }

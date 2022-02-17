@@ -1,11 +1,18 @@
 package svse.models.risultati;
 
 public class RisultatoReferendum extends Risultato {
-	private Boolean rispostaVincente;
-	public RisultatoReferendum(Boolean r) {
-		rispostaVincente = r;
+	private int risposteFavorevoli, risposteNonFavorevoli;
+	
+	public RisultatoReferendum(int f, int n) {
+		this.risposteFavorevoli = f;
+		this.risposteNonFavorevoli = n;
+	}	
+
+	public int getFavorevoli() {
+		return this.risposteFavorevoli;
 	}
-	public Boolean getRispostaVincente() {
-		return rispostaVincente;
+	
+	public int getNonFavorevoli() {
+		return this.risposteNonFavorevoli;
 	}
 }

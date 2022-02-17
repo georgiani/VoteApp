@@ -23,6 +23,7 @@ public abstract class Controller  {
 			Controller c = loader.getController();
 			c.init(parameters);
 			App.getAppScene().setRoot(root);
+			App.resize();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

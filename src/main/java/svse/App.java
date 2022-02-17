@@ -9,6 +9,7 @@ import svse.data.DBManager;
 
 public class App extends Application {
 	private static Scene primaryScene;
+	private static Stage stg;
 	private static LoginController loginController;
 	
 	public static void main(String args[]) {
@@ -26,9 +27,11 @@ public class App extends Application {
 		
 		loginController = loader.getController();
 		loginController.accendiTotem();
-		
 		primaryScene = login;
+		stg = primaryStage;
+		
 		primaryStage.setScene(login);
+		primaryStage.sizeToScene();
 		primaryStage.show();
 	}
 	
@@ -37,6 +40,10 @@ public class App extends Application {
 		loginController.chiudiTotem();
 		DBManager.getInstance().close();
 		System.exit(0);
+	}
+	
+	public static void resize() {
+		stg.sizeToScene();
 	}
 	
 	public static Scene getAppScene() {

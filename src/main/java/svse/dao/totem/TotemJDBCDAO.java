@@ -24,14 +24,10 @@ public class TotemJDBCDAO implements ITotemDAO {
 		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
 		try {
 			ResultSet res = p.executeQuery();
-			
-			// TODO: controllo 0 sessioni
-				
-			// prendi i risultati
 			while (res.next())
 				result.add(getTotemFromResult(res));
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: getAll");
 		}
 			
 		return result;
@@ -45,10 +41,9 @@ public class TotemJDBCDAO implements ITotemDAO {
 		try {
 			ip = res.getString(2);
 			porta = res.getInt(3);
-			
 			result = new Totem(ip, porta);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: getTotemFromResult");
 		}
 		
 		return result;
@@ -62,16 +57,10 @@ public class TotemJDBCDAO implements ITotemDAO {
 		try {
 			p.setString(1, t.getIndirizzo());
 			p.setInt(2, t.getPort());
-			
 			p.execute();
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Totem");
 		}
-	}
-
-	@Override
-	public void update(Totem t, Totem u) {
-		// non usato
 	}
 	
 
@@ -82,10 +71,15 @@ public class TotemJDBCDAO implements ITotemDAO {
 		try {
 			p.setString(1, t.getIndirizzo());
 			p.setInt(2, t.getPort());
-			
 			p.executeUpdate();
 		} catch (SQLException e) {
-			throw new DatabaseException("Problemi con la base dati, riprovare!");
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: delete Totem");
 		}
+	}
+	
+
+	@Override
+	public void update(Totem t, Totem u) {
+		// non usato
 	}
 }

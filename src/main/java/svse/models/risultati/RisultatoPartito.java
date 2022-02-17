@@ -1,18 +1,18 @@
 package svse.models.risultati;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import svse.models.sessione.Partito;
 
 public class RisultatoPartito extends Risultato {
-	private Partito partito;
+	private Map<Partito, Integer> risultati;
 	
-	public RisultatoPartito(Partito p) {
-		this.partito = p;
+	public RisultatoPartito(Map<Partito, Integer> m) {
+		this.risultati = new HashMap<Partito, Integer>(m);
 	}
 	
-	public Partito getPartio() {
-		return this.partito;
+	public Map<Partito, Integer> getRisultati() {
+		return new HashMap<Partito, Integer>(this.risultati);
 	}
 }

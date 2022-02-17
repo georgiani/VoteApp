@@ -2,6 +2,8 @@ package svse.models.totem;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+
+import logger.ProjectLogger;
 import svse.controllers.common.LoginController;
 
 public class GestoreTotem extends Thread {
@@ -24,7 +26,7 @@ public class GestoreTotem extends Thread {
 			int id = Integer.parseInt(risp.trim());
 			c.passaInVoto(id);
 		} catch (Exception e) {
-			System.out.println(e);
+			ProjectLogger.getInstance().log("i", e.getMessage());
 		}
 	}
 }

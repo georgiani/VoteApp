@@ -1,5 +1,7 @@
 package svse.exceptions;
 
+import logger.ProjectLogger;
+
 public class DatabaseException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
@@ -9,5 +11,6 @@ public class DatabaseException extends RuntimeException {
 	
 	public DatabaseException(String m) {
 		super(m);
+		ProjectLogger.getInstance().log("e", m);
 	}
 }

@@ -2,6 +2,8 @@ package svse.models.totem;
 
 import java.net.InetSocketAddress;
 
+import logger.ProjectLogger;
+
 public class Totem {
 	private String indirizzo;
 	private InetSocketAddress isa;
@@ -11,8 +13,7 @@ public class Totem {
 			this.indirizzo = indirizzo;
 			this.isa = new InetSocketAddress(this.indirizzo, porta);
 		} catch (Exception e) {
-			// TODO: log
-			e.printStackTrace();
+			ProjectLogger.getInstance().log("e", e.getMessage());
 		}
 	}
 	
