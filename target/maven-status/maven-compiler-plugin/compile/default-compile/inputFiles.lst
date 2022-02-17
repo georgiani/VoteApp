@@ -1,6 +1,7 @@
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/exceptions/NotFoundException.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/risultati/RisultatoPartito.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/totem/TotemJDBCDAO.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/voto/VotoOrdinaleSingolo.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/lista/ListaJDBCDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione/Lista.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/gestoremain/ConfigurazioneNuovaSessioneController.java
@@ -19,6 +20,7 @@
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/risultati/Risultato.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/VincitaStrategy.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/common/LoginController.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/voto/VotoOrdinale.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/gestoremain/HomeGestoreController.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/lista/IListaDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/MaggioranzaAssolutaStrategy.java

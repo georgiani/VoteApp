@@ -119,7 +119,10 @@ public class LoginController extends Controller {
 	public void accendiTotem() {
 		try {
 			totemSocket = new DatagramSocket(0);
+			System.out.println(totemSocket.getLocalPort());
 			thisTotem = new Totem(InetAddress.getLocalHost().getHostAddress(), totemSocket.getLocalPort());
+			System.out.println("Nuovo Totem " + thisTotem.getPort());
+			
 			totemDAO.save(thisTotem);
 			if (gestioneTotem == null) {
 				gestioneTotem = new GestoreTotem(this, totemSocket);

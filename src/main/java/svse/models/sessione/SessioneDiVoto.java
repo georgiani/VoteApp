@@ -30,8 +30,8 @@ public class SessioneDiVoto {
 		return nomeSessione;
 	}
 	
-	public Risultato getRisultati(List<Voto> v) {
-		return strategiaVincita.getVincitore(v);
+	public Risultato getRisultati() {
+		return strategiaVincita.getVincitore(this);
 	}
 	
 	public boolean isStarted() {

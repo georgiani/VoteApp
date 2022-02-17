@@ -9,7 +9,7 @@ import svse.models.voto.Voto;
 public class MaggioranzaAssolutaStrategy extends VincitaStrategy {
 
 	@Override
-	public Risultato getVincitore(List<Voto> v) {
+	public Risultato getVincitore(SessioneDiVoto s) {
 		return null;
 	}
 

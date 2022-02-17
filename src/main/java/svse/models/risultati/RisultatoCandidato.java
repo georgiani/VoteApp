@@ -1,21 +1,18 @@
 package svse.models.risultati;
 
+import svse.models.sessione.Candidato;
+
 public class RisultatoCandidato extends Risultato {
-	private String nome, cognome;
+	private Candidato c;
 	private int numeroVoti;
 	
-	public RisultatoCandidato(String nome, String cognome, int nr) {
-		this.nome = nome;
-		this.cognome = cognome;
+	public RisultatoCandidato(Candidato candidato, int nr) {
+		this.c = candidato;
 		this.numeroVoti = nr;
 	}
 	
-	public String getNome() {
-		return this.nome;
-	}
-	
-	public String getCognome() {
-		return this.cognome;
+	public Candidato getCandidato() {
+		return this.c;
 	}
 	
 	public int getNumeroVoti() {

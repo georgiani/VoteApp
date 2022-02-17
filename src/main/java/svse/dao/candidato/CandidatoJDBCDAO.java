@@ -11,6 +11,7 @@ import svse.data.DBManager;
 import svse.exceptions.DatabaseException;
 import svse.models.sessione.Candidato;
 import svse.models.sessione.Lista;
+import svse.models.sessione.Partito;
 
 public class CandidatoJDBCDAO implements ICandidatoDAO {
 
@@ -45,7 +46,7 @@ public class CandidatoJDBCDAO implements ICandidatoDAO {
 	}
 
 	@Override
-	public List<Candidato> getCandidati(String partito) {
+	public List<Candidato> getCandidati(Partito partito) {
 		int id = DAOFactory.getFactory().getListaDAOInstance().getId(partito);
 		String q = "select * from Candidato where id_lista = ?;";
 		
@@ -85,7 +86,7 @@ public class CandidatoJDBCDAO implements ICandidatoDAO {
 
 	@Override
 	public void save(Candidato c, Lista l) {
-		int id = DAOFactory.getFactory().getListaDAOInstance().getId(l.getPartito().getNome());
+		int id = DAOFactory.getFactory().getListaDAOInstance().getId(l.getPartito());
 		String q = "insert into Candidato(nome, cognome, id_lista) values (?, ?, ?)";
 				
 		// prepara e gira la query

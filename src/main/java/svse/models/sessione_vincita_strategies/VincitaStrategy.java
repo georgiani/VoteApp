@@ -23,5 +23,5 @@ public abstract class VincitaStrategy {
 		return result;
 	}
 	
-	public abstract Risultato getVincitore(List<Voto> v);
+	public abstract Risultato getVincitore(SessioneDiVoto s);
 }

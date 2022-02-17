@@ -70,12 +70,11 @@ public class ListaJDBCDAO implements IListaDAO {
 	
 	private Lista getListaFromResult(ResultSet res, int sessione_id) {
 		Lista result = null;
-		String nome;
 		
 		try {
-			nome = res.getString(3);
-			List<Candidato> candidati = DAOFactory.getFactory().getCandidatoDAOInstance().getCandidati(nome);
-			result = new Lista(new Partito(nome), candidati);
+			Partito partito = new Partito(res.getString(3));
+			List<Candidato> candidati = DAOFactory.getFactory().getCandidatoDAOInstance().getCandidati(partito);
+			result = new Lista(partito, candidati);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -100,7 +99,8 @@ public class ListaJDBCDAO implements IListaDAO {
 	}
 
 	@Override
-	public int getId(String partito) {
+	public int getId(Partito par) {
+		String partito = par.getNome();
 		String q = "select id from Lista where partito = ?;";
 		
 		// prepara e gira la query

@@ -1,5 +1,6 @@
 package svse.controllers.elettoremain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -8,14 +9,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.*;
 import svse.controllers.Controller;
-import svse.dao.candidato.ICandidatoDAO;
 import svse.dao.factory.DAOFactory;
 import svse.dao.lista.IListaDAO;
 import svse.dao.sessione.ISessioneDAO;
 import svse.dao.votazione.IVotazioneDAO;
 import svse.models.sessione.*;
 import svse.models.voto.*;
-import svse.App;
+import javafx.util.Pair;
 
 public class VotoSessioneController extends Controller {
 	private SessioneDiVoto sessione;
@@ -35,6 +35,9 @@ public class VotoSessioneController extends Controller {
 	private ToggleGroup tg;
 	private GridPane g;
 	
+	// ordinale
+	List<Pair<TextField, Partecipante>> ordini;
+	
 	@Override
 	public void init(Object parameter) {
 		int s = (int)parameter;
@@ -48,10 +51,6 @@ public class VotoSessioneController extends Controller {
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
 		
-		g = new GridPane();
-		g.setAlignment(Pos.CENTER);
-		g.setGridLinesVisible(true);
-		
 		nomeSessione.setText(sessione.getNome());
 		if (sessione.getStrategiaVoto().equals("r"))
 			setReferendum();
@@ -63,6 +62,9 @@ public class VotoSessioneController extends Controller {
 	}
 	
 	private void setVotazioneCategorica() {
+		g = new GridPane();
+		g.setAlignment(Pos.CENTER);
+		g.setGridLinesVisible(true);
 		tg = new ToggleGroup();
 		
 		List<Lista> liste = listaDao.getListe(sessione);
@@ -106,46 +108,110 @@ public class VotoSessioneController extends Controller {
 				j++;
 			}
 		}
-
 		scrollPane.setContent(g);
 	}
 	
-	private void categoricaConPreferenzaRadio(Lista l, int j, int i) {
-		RadioButton result = new RadioButton();
-		
-		VBox boxLista = new VBox(10);
-		
-		boxLista.setAlignment(Pos.CENTER);
-		boxLista.getChildren().add(new Label("Partito: " + l.getPartito().getNome()));
-		
-		for (Candidato c : l.getCandidati())
-			boxLista.getChildren().add(new Label(c.getNome() + " " + c.getCognome()));
-		
-		result.setGraphic(boxLista);
-		result.setToggleGroup(tg);
-		
-		GridPane.setMargin(result, new Insets(20, 20, 20, 20));
-		g.add(result, j, i);
-		if (j + 1 == 3) {
-			i++;
-			j = 0;
-		} else {
-			j++;
-		}
-	}
-	
-	private void setVotazioneCatConPreferenza() {		
+	private void setVotazioneCatConPreferenza() {	
+		g = new GridPane();
+		g.setAlignment(Pos.CENTER);
+		g.setGridLinesVisible(true);
 		tg = new ToggleGroup();
 		
 		List<Lista> liste = listaDao.getListe(sessione);
 		
 		int i = 0, j = 0;
-		for (Lista l : liste) 
-			categoricaConPreferenzaRadio(l, j, i);
+		
+		for (Lista l : liste) {
+			RadioButton lista = new RadioButton();
+			lista.setToggleGroup(tg);
+			lista.setUserData(l.getPartito());
+				
+			
+			VBox boxLista = new VBox(10);
+			boxLista.setAlignment(Pos.CENTER);
+			boxLista.getChildren().add(new Label("Partito: " + l.getPartito().getNome()));
+			
+			for (Candidato c : l.getCandidati()) {
+				HBox h = new HBox(10);
+				h.setAlignment(Pos.CENTER);
+				TextField t = new TextField();
+				
+				h.getChildren().add(t);
+				h.getChildren().add(new Label(c.getNome() + " " + c.getCognome()));
+				
+				h.setUserData(c); // assoccio candidato a questo checkbox
+			}
+
+			lista.setGraphic(boxLista);
+			lista.setUserData(boxLista.getChildren()); // lista di candidati selezionabili
+				
+			GridPane.setMargin(lista, new Insets(20, 20, 20, 20));
+			g.add(lista, j, i);
+		}
+		scrollPane.setContent(g);
 	}
 	
 	private void setVotazioneOrdinale() {
+		g = new GridPane();
+		g.setAlignment(Pos.CENTER);
+		g.setGridLinesVisible(true);
+		tg = new ToggleGroup();
 		
+		List<Lista> liste = listaDao.getListe(sessione);
+		ordini = new ArrayList<Pair<TextField, Partecipante>>();
+		
+		int i = 0, j = 0;
+		
+		for (Lista l : liste) {
+			if (sessione.getOrdinaleCategoricoType().equals("p") ) {
+				HBox boxLista = new HBox(10);
+				boxLista.setAlignment(Pos.CENTER);
+				
+				VBox boxInfo = new VBox(10);
+				boxInfo.setAlignment(Pos.CENTER);
+				boxInfo.getChildren().add(new Label("Partito: " + l.getPartito().getNome()));
+				
+				for (Candidato c : l.getCandidati()) 
+					boxInfo.getChildren().add(new Label(c.getNome() + " " + c.getCognome()));
+
+				TextField t = new TextField();
+				t.setPromptText("Ordine");
+				boxLista.getChildren().add(t);
+				boxLista.getChildren().add(boxInfo);
+			
+				ordini.add(new Pair<TextField, Partecipante>(t, l.getPartito())); // lista di partiti
+					
+				GridPane.setMargin(boxLista, new Insets(20, 20, 20, 20));
+				g.add(boxLista, j, i);
+			} else {
+				VBox boxInfo = new VBox(10);
+				boxInfo.setAlignment(Pos.CENTER);
+				boxInfo.getChildren().add(new Label("Partito: " + l.getPartito().getNome()));
+				
+				for (Candidato c : l.getCandidati()) {
+					HBox boxCandidato = new HBox(10);
+					boxCandidato.setAlignment(Pos.CENTER);
+					
+					TextField t = new TextField();
+					t.setPromptText("Ordine");
+					boxCandidato.getChildren().add(t);
+					boxCandidato.getChildren().add(new Label(c.getNome() + " " + c.getCognome()));
+					
+					boxInfo.getChildren().add(boxCandidato);
+					ordini.add(new Pair<TextField, Partecipante>(t, c));
+				}
+				GridPane.setMargin(boxInfo, new Insets(20, 20, 20, 20));
+				g.add(boxInfo, j, i);
+			}
+			
+			if (j + 1 == 1) {
+				i++;
+				j = 0;
+			} else {
+				j++;
+			}
+		}
+		scrollPane.setContent(g);
 	}
 	
 	private void setReferendum() {
@@ -181,20 +247,45 @@ public class VotoSessioneController extends Controller {
 				confermaVoto();
 			} else if (sessione.getStrategiaVoto().equals("c")) {
 				if (sessione.getOrdinaleCategoricoType().equals("c")) {
-					Candidato c = (Candidato)((RadioButton)tg.getSelectedToggle()).getUserData();
-					Voto v = new VotoCategorico(c, sessione);
-					votazioneDao.save(v);
-					confermaVoto();
+					RadioButton selected = (RadioButton)tg.getSelectedToggle();
+					if (selected != null) {
+						Candidato c = (Candidato)selected.getUserData();
+						Voto v = new VotoCategorico(c, sessione);
+						votazioneDao.save(v);
+						confermaVoto();
+					} else {
+						Alert nonSelezionato = new Alert(AlertType.INFORMATION, "Nessun candidato selezionato");
+						nonSelezionato.showAndWait();
+						return;
+					}
 				} else {
-					Partito p = (Partito)((RadioButton)tg.getSelectedToggle()).getUserData();
-					Voto v = new VotoCategorico(p, sessione);
-					votazioneDao.save(v);
-					confermaVoto();
+					RadioButton selected = (RadioButton)tg.getSelectedToggle();
+					if (selected != null) {
+						Partito p = (Partito)selected.getUserData();
+						Voto v = new VotoCategorico(p, sessione);
+						votazioneDao.save(v);
+						confermaVoto();
+					} else {
+						Alert nonSelezionato = new Alert(AlertType.INFORMATION, "Nessun partito selezionato");
+						nonSelezionato.showAndWait();
+						return;
+					}
 				}	
 			} else if (sessione.getStrategiaVoto().equals("p")) {
-				
+				// da fare
 			} else {
-				
+				VotoOrdinale v = new VotoOrdinale(sessione);
+				for (Pair<TextField, Partecipante> p : ordini) {
+					if (p.getKey().getText() == null || p.getKey().getText().isEmpty()) {
+						Alert nonSelezionato = new Alert(AlertType.INFORMATION, "Inserire tutti i ordini");
+						nonSelezionato.showAndWait();
+						return;
+					}
+					
+					v.addPartecipante(p.getValue(), Integer.parseInt(p.getKey().getText().trim()));
+				}
+				votazioneDao.save(v);
+				confermaVoto();
 			}
     	}
 	}
