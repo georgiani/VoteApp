@@ -18,8 +18,4 @@ public class VotoReferendum extends Voto {
 	public String getTipo() {
 		return "r";
 	}
-	
-	public SessioneDiVoto getSessione() {
-		return this.sessione;
-	}
 }

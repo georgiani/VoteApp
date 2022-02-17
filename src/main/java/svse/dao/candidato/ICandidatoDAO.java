@@ -10,4 +10,5 @@ public interface ICandidatoDAO extends IDAO<Candidato> {
 	public List<Candidato> getCandidati(String nomePartito);
 	public void save(Candidato c, Lista l);
 	public int getId(Candidato c); 
+	public int getIdLista(Candidato c);
 }

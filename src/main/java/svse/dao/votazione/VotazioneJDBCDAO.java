@@ -9,9 +9,12 @@ import java.util.List;
 import svse.dao.factory.DAOFactory;
 import svse.data.DBManager;
 import svse.exceptions.DatabaseException;
+import svse.models.sessione.Candidato;
+import svse.models.sessione.Partito;
 import svse.models.sessione.SessioneDiVoto;
 import svse.models.utente.Elettore;
 import svse.models.voto.Voto;
+import svse.models.voto.VotoCategorico;
 import svse.models.voto.VotoReferendum;
 
 public class VotazioneJDBCDAO implements IVotazioneDAO {
@@ -81,6 +84,27 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 				p.execute();
 			} catch (SQLException e) {
 				throw new DatabaseException("Problemi con la base dati, riprovare!");
+			}
+		} else if (t.getTipo().equals("c")) {
+			VotoCategorico vc = (VotoCategorico)t;
+			int idSessione = DAOFactory.getFactory().getSessioneDAOInstance().getId(vc.getSessione());
+			
+			if (vc.getPartecipanteScelto().isPartito()) {
+				String q = "insert into Voto(id_lista, id_sessione) values (?, ?)";
+				int idLista = DAOFactory.getFactory().getListaDAOInstance().getId(((Partito)vc.getPartecipanteScelto()).getNome());
+				
+				PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+				try {	
+					p.setInt(1, idLista);
+					p.setInt(2, idSessione);
+					p.execute();
+				} catch (SQLException e) {
+					throw new DatabaseException("Problemi con la base dati, riprovare!");
+				}
+			} else {
+				// inserimento in Voto e poi prendere l'id inserito e inserire il candidato in Scelta	
+				String q = "insert into Voto(id_lista, id_sessione) values (?, ?)";
+				int idLista = DAOFactory.getFactory().getCandidatoDAOInstance().getIdLista((Candidato)vc.getPartecipanteScelto());
 			}
 		}
 	}

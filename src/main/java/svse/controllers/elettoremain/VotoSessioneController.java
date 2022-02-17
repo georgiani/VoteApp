@@ -30,7 +30,6 @@ public class VotoSessioneController extends Controller {
 	private ScrollPane scrollPane;
 	
 	private ISessioneDAO sessioneDao;
-	private ICandidatoDAO candidatoDao;
 	private IListaDAO listaDao;
 	private IVotazioneDAO votazioneDao;
 	private ToggleGroup tg;
@@ -42,13 +41,17 @@ public class VotoSessioneController extends Controller {
 		
 		sessioneDao = DAOFactory.getFactory().getSessioneDAOInstance();
 		listaDao = DAOFactory.getFactory().getListaDAOInstance();
-		candidatoDao = DAOFactory.getFactory().getCandidatoDAOInstance();
 		votazioneDao = DAOFactory.getFactory().getVotazioneDAOInstance();
 		
 		sessione = sessioneDao.getById(s);
 		
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
+		
+		g = new GridPane();
+		g.setAlignment(Pos.CENTER);
+		g.setGridLinesVisible(true);
+		
 		nomeSessione.setText(sessione.getNome());
 		if (sessione.getStrategiaVoto().equals("r"))
 			setReferendum();
@@ -60,59 +63,47 @@ public class VotoSessioneController extends Controller {
 	}
 	
 	private void setVotazioneCategorica() {
-		g = new GridPane();
-		g.setAlignment(Pos.CENTER);
-		g.setGridLinesVisible(true);
-		
 		tg = new ToggleGroup();
 		
 		List<Lista> liste = listaDao.getListe(sessione);
 		
 		int i = 0, j = 0;
 		
-		if (sessione.getOrdinaleCategoricoType().equals("p")) {
-			for (Lista l : liste) {
+		for (Lista l : liste) {
+			VBox boxLista = new VBox(10);
+			boxLista.setAlignment(Pos.CENTER);
+			boxLista.getChildren().add(new Label("Partito: " + l.getPartito().getNome()));
+			
+			if (sessione.getOrdinaleCategoricoType().equals("p")) {
 				RadioButton lista = new RadioButton();
-				VBox boxLista = new VBox(10);
-				boxLista.setAlignment(Pos.CENTER);
-				boxLista.getChildren().add(new Label("Partito: " + l.getPartito().getNome()));
+				lista.setToggleGroup(tg);
+				lista.setUserData(l.getPartito());
 				
 				for (Candidato c : l.getCandidati())
 					boxLista.getChildren().add(new Label(c.getNome() + " " + c.getCognome()));
-				
-				lista.setGraphic(boxLista);
-				lista.setToggleGroup(tg);
+
+				lista.setGraphic(boxLista); 
 				
 				GridPane.setMargin(lista, new Insets(20, 20, 20, 20));
 				g.add(lista, j, i);
-				if (j + 1 == 3) {
-					i++;
-					j = 0;
-				} else {
-					j++;
-				}
-			}
-		} else {
-			for (Lista l : liste) {
-				VBox boxLista = new VBox(10);
-				boxLista.setAlignment(Pos.CENTER);
-				boxLista.getChildren().add(new Label("Partito: " + l.getPartito().getNome()));
-				
+			} else {
 				for (Candidato c : l.getCandidati()) {
-					RadioButton cand = new RadioButton();
+					RadioButton cand = new RadioButton(c.getNome() + " " + c.getCognome());
 					cand.setToggleGroup(tg);
-					cand.setGraphic(new Label(c.getNome() + " " + c.getCognome()));
+					cand.setUserData(c);
+					
 					boxLista.getChildren().add(cand);
 				}
 				
 				GridPane.setMargin(boxLista, new Insets(20, 20, 20, 20));
 				g.add(boxLista, j, i);
-				if (j + 1 == 3) {
-					i++;
-					j = 0;
-				} else {
-					j++;
-				}
+			}
+
+			if (j + 1 == 4) {
+				i++;
+				j = 0;
+			} else {
+				j++;
 			}
 		}
 
@@ -143,11 +134,7 @@ public class VotoSessioneController extends Controller {
 		}
 	}
 	
-	private void setVotazioneCatConPreferenza() {
-		g = new GridPane();
-		g.setAlignment(Pos.CENTER);
-		g.setGridLinesVisible(true);
-		
+	private void setVotazioneCatConPreferenza() {		
 		tg = new ToggleGroup();
 		
 		List<Lista> liste = listaDao.getListe(sessione);
@@ -171,7 +158,10 @@ public class VotoSessioneController extends Controller {
 		tasti.setAlignment(Pos.CENTER);
 		
 		RadioButton favorevole = new RadioButton("Favorevole");
+		favorevole.setUserData(true);
 		RadioButton nonFavorevole = new RadioButton("Non Favorevole");
+		nonFavorevole.setUserData(false);
+		
 		favorevole.setToggleGroup(tg);
 		nonFavorevole.setToggleGroup(tg);
 		tasti.getChildren().addAll(favorevole, nonFavorevole);
@@ -181,24 +171,37 @@ public class VotoSessioneController extends Controller {
 	}
 	
 	public void avanti() {
-		if (sessione.getStrategiaVoto().equals("r")) {
-			String rispostaSelezionata = ((RadioButton)tg.getSelectedToggle()).getText(); 
-			Voto v = new VotoReferendum(rispostaSelezionata.equals("Favorevole") ? true : false, sessione);
-			votazioneDao.save(v);
-			
-			Alert conferma = new Alert(AlertType.INFORMATION, "Voto Confermato");
-			conferma.showAndWait();
-			
-			changeView("views/Login.fxml");
-		}
-		else if (sessione.getStrategiaVoto().equals("c")) {
-			
-		}
-		else if (sessione.getStrategiaVoto().equals("p")) {
-			
-		}
-		else {
-			
-		}
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Sicuro di voler confermare questo voto ?");
+    	alert.showAndWait();
+    	if (alert.getResult() == ButtonType.OK) {
+			if (sessione.getStrategiaVoto().equals("r")) {
+				boolean rispostaSelezionata = (Boolean)((RadioButton)tg.getSelectedToggle()).getUserData(); 
+				Voto v = new VotoReferendum(rispostaSelezionata, sessione);
+				votazioneDao.save(v);
+				confermaVoto();
+			} else if (sessione.getStrategiaVoto().equals("c")) {
+				if (sessione.getOrdinaleCategoricoType().equals("c")) {
+					Candidato c = (Candidato)((RadioButton)tg.getSelectedToggle()).getUserData();
+					Voto v = new VotoCategorico(c, sessione);
+					votazioneDao.save(v);
+					confermaVoto();
+				} else {
+					Partito p = (Partito)((RadioButton)tg.getSelectedToggle()).getUserData();
+					Voto v = new VotoCategorico(p, sessione);
+					votazioneDao.save(v);
+					confermaVoto();
+				}	
+			} else if (sessione.getStrategiaVoto().equals("p")) {
+				
+			} else {
+				
+			}
+    	}
+	}
+	
+	private void confermaVoto() {
+		Alert conferma = new Alert(AlertType.INFORMATION, "Voto Confermato");
+		conferma.showAndWait();
+		changeView("views/Login.fxml");
 	}
 }

@@ -124,4 +124,28 @@ public class CandidatoJDBCDAO implements ICandidatoDAO {
 		return result;
 	}
 
+	@Override
+	public int getIdLista(Candidato c) {
+		String q = "select id_lista from Candidato where nome = ? and cognome = ?;";
+		
+		// prepara e gira la query
+		int result = 0;
+		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+		try {	
+			p.setString(1, c.getNome());
+			p.setString(2, c.getCognome());
+			ResultSet res = p.executeQuery();
+				
+			// TODO: controllo 0 liste
+			
+			// prendi i risultati
+			while (res.next())
+				result = res.getInt(1);
+		} catch (SQLException e) {
+			throw new DatabaseException("Problemi con la base dati, riprovare!");
+		}
+			
+		return result;
+	}
+
 }

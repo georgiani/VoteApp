@@ -13,6 +13,7 @@
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/candidato/CandidatoJDBCDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/exceptions/DatabaseException.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/elettoremain/VotoSessioneController.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/voto/VotoCategoricoConPreferenze.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione_vincita_strategies/ReferendumSenzaQuorumStrategy.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/gestoremain/VisualizzaRisultatiController.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/risultati/Risultato.java
@@ -26,6 +27,7 @@
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/utente/IUtenteDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/factory/DAOFactory.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/candidato/ICandidatoDAO.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/voto/VotoCategorico.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/totem/GestoreTotem.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/dao/totem/ITotemDAO.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/utente/Gestore.java
@@ -47,6 +49,7 @@
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/utente/Elettore.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/risultati/RisultatoReferendum.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/ps/IObserverUDP.java
+/Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione/Partecipante.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/controllers/elettoremain/RegistrazionController.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/sessione/Partito.java
 /Users/georgiani/Documents/EclipseWorkspace/VoteApp/src/main/java/svse/models/voto/Voto.java

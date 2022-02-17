@@ -1,6 +1,6 @@
 package svse.models.sessione;
 
-public class Candidato {
+public class Candidato implements Partecipante {
 	private String nome, cognome;
 	public Candidato(String nome, String cognome) {
 		this.nome = nome;
@@ -13,5 +13,15 @@ public class Candidato {
 	
 	public String getCognome() {
 		return this.cognome;
+	}
+
+	@Override
+	public boolean isPartito() {
+		return false;
+	}
+
+	@Override
+	public boolean isCandidato() {
+		return true;
 	}
 }
