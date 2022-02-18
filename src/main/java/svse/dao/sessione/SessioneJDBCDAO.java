@@ -181,6 +181,21 @@ public class SessioneJDBCDAO implements ISessioneDAO {
 	}
 	
 	@Override
+	public void delete(SessioneDiVoto t) {
+		int idSessione = getId(t);
+		String q = "delete from Sessione where id = ?";
+		
+		// prepara e gira la query
+		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+		try {	
+			p.setInt(1, idSessione);
+			p.execute();
+		} catch (SQLException e) {
+			throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Sessione");
+		}
+	}
+	
+	@Override
 	public int getId(SessioneDiVoto s) {
 		String q = "select id from Sessione where nome = ?;";
 		
@@ -345,11 +360,6 @@ public class SessioneJDBCDAO implements ISessioneDAO {
 	
 	@Override
 	public void update(SessioneDiVoto t, SessioneDiVoto u) {
-		// non serve
-	}
-
-	@Override
-	public void delete(SessioneDiVoto t) {
 		// non serve
 	}
 }

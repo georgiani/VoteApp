@@ -27,17 +27,9 @@ public class DBManager {
 			return false;
 		}
 		
-		try {
 			// si verifica se tutte le tabelle neccessarie per l'app esistono
 			// se non esistono, si creano ora
-			String createUserTable = "create table if not exists Utente(" + 
-									 "id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT," + 
-									 "nome VARCHAR(50) NOT NULL," + 
-									 "cognome VARCHAR(50) NOT NULL," + 
-									 "cf VARCHAR(50) NOT NULL," + 
-									 "ruolo ENUM('e', 'g') DEFAULT 'e'," +
-									 "password VARCHAR(50) NOT NULL," +
-									 "comune VARCHAR(50) NOT NULL);";
+			// TODO:
 			
 			// creazione sessione
 			// create table Sessione 
@@ -94,13 +86,7 @@ public class DBManager {
 			// id_info int, 
 			// foreign key (id_sessione) references Sessione(id) on delete cascade, 
 			// foreign key (id_info) references Info(id) on delete cascade);
-			PreparedStatement p = con.prepareStatement(createUserTable);
-			ResultSet rs = p.executeQuery();
-			System.out.println(rs.toString());
-			return true;
-		} catch (SQLException e) {
-			return false;
-		}
+		return true;
 	}
 	
 	/***
