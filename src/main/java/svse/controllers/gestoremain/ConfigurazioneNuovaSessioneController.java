@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
+import svse.App;
 import svse.controllers.Controller;
 import svse.dao.candidato.ICandidatoDAO;
 import svse.dao.factory.DAOFactory;
@@ -194,6 +195,7 @@ private Gestore gestore;
 	public void init(Object parameter) {
 		gestore = (Gestore)parameter;
 		liste = new HashMap<>();
+		App.resize();
 		sessioneDao = DAOFactory.getFactory().getSessioneDAOInstance();
 		candidatoDao = DAOFactory.getFactory().getCandidatoDAOInstance();
 		listaDao = DAOFactory.getFactory().getListaDAOInstance();

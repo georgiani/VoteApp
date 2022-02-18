@@ -3,7 +3,6 @@ package svse.controllers;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import ps.IObserver;
 import svse.App;
 
 public abstract class Controller  {
@@ -23,7 +22,6 @@ public abstract class Controller  {
 			Controller c = loader.getController();
 			c.init(parameters);
 			App.getAppScene().setRoot(root);
-			App.resize();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

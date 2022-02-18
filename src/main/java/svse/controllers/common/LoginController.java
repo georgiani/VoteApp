@@ -10,11 +10,11 @@ import svse.dao.factory.DAOFactory;
 import svse.dao.totem.ITotemDAO;
 import svse.dao.utente.IUtenteDAO;
 import svse.exceptions.UtenteNotFoundException;
-import svse.models.totem.GestoreTotem;
-import svse.models.totem.Totem;
 import svse.models.utente.Elettore;
 import svse.models.utente.Gestore;
 import svse.models.utente.Utente;
+import svse.totem.GestoreTotem;
+import svse.totem.Totem;
 
 public class LoginController extends Controller {
 	@FXML

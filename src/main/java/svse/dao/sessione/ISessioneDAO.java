@@ -1,9 +1,10 @@
 package svse.dao.sessione;
 
 import svse.dao.IDAO;
-import svse.models.risultati.Risultato;
 import svse.models.sessione.*;
 import svse.models.utente.Elettore;
+import svse.risultati.Risultato;
+
 import java.util.List;
 import ps.IObservable;
 

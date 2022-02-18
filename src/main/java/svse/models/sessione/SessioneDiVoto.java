@@ -1,16 +1,8 @@
 package svse.models.sessione;
 
-import java.util.List;
-
-import svse.models.risultati.Risultato;
-import svse.models.sessione_vincita_strategies.VincitaStrategy;
-import svse.models.voto.Voto;
-
-
 public class SessioneDiVoto {
 	private String nomeSessione;
-	private VincitaStrategy strategiaVincita;
-	private String strategiaVincitaS;
+	private String strategiaVincita;
 	private String strategiaVoto;
 	private String stato = null;
 	private String tipo = null;
@@ -18,8 +10,7 @@ public class SessioneDiVoto {
 	
 	public SessioneDiVoto(String n, String vincita, String voto, String status, String t, String q) {
 		nomeSessione = n;
-		strategiaVincitaS = vincita;
-		strategiaVincita = VincitaStrategy.getStrategy(vincita);
+		strategiaVincita = vincita;
 		strategiaVoto = voto;
 		stato = status;
 		tipo = t;
@@ -28,10 +19,6 @@ public class SessioneDiVoto {
 	
 	public String getNome() {
 		return nomeSessione;
-	}
-	
-	public Risultato getRisultati() {
-		return strategiaVincita.getVincitore(this);
 	}
 	
 	public boolean isStarted() {
@@ -65,7 +52,7 @@ public class SessioneDiVoto {
 	}
 	
 	public String getStrategiaVincita() {
-		return strategiaVincitaS;
+		return strategiaVincita;
 	}
 	
 	public String getOrdinaleCategoricoType() {
@@ -76,4 +63,12 @@ public class SessioneDiVoto {
 		return this.domandaReferendum;
 	}
 	
+	
+	public void start() {
+		this.stato = "s";
+	}
+	
+	public void stop() {
+		this.stato = "f";
+	}
 }

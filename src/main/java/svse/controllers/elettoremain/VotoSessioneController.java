@@ -31,6 +31,9 @@ public class VotoSessioneController extends Controller {
 	@FXML
 	private ScrollPane scrollPane;
 	
+	@FXML
+	private Button schedaBiancaButton;
+	
 	private ISessioneDAO sessioneDao;
 	private IListaDAO listaDao;
 	private IVotazioneDAO votazioneDao;
@@ -295,6 +298,17 @@ public class VotoSessioneController extends Controller {
 				votazioneDao.save(v);
 				confermaVoto();
 			}
+    	}
+	}
+	
+	@FXML
+	private void schedaBianca() {
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Sicuro di voler confermare questo voto ?");
+    	alert.showAndWait();
+    	if (alert.getResult() == ButtonType.OK) {
+    		VotoBianco v = new VotoBianco(sessione);
+    		votazioneDao.save(v);
+    		confermaVoto();
     	}
 	}
 	

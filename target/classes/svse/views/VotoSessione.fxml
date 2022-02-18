@@ -14,5 +14,6 @@
          </font></Label>
       <ScrollPane fx:id="scrollPane" layoutX="22.0" layoutY="29.0" prefHeight="329.0" prefWidth="557.0" />
       <Button fx:id="avantiButton" layoutX="526.0" layoutY="361.0" mnemonicParsing="false" onAction="#avanti" text="Avanti" />
+      <Button fx:id="schedaBiancaButton" layoutX="22.0" layoutY="361.0" mnemonicParsing="false" onAction="#schedaBianca" text="Scheda Bianca" />
    </children>
 </Pane>

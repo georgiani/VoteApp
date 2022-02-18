@@ -101,13 +101,17 @@ public class HomeGestoreController extends Controller implements IObserver {
     }
 	
 	public void start() {
-		if (sessione.isNew() || !sessione.isStarted())
+		if (sessione.isNew()) {
+			sessione.start();
 			sessioneDao.start(sessione);
+		}
 	}
 	
 	public void stop() {
-		if (sessione.isStarted())
+		if (sessione.isStarted()) {
+			sessione.stop();
 			sessioneDao.stop(sessione);
+		}
 	}
 	
 	public void totem() {
@@ -115,7 +119,7 @@ public class HomeGestoreController extends Controller implements IObserver {
 	}
 	
 	public void risultati() {
-		changeView("views/Risultati.fxml", List.of(gestore, sessioneSelezionata));
+		changeView("views/VisualizzaRisultati.fxml", List.of(gestore, sessione));
 	}
 	
 	@Override

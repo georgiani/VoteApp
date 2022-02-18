@@ -3,10 +3,7 @@ package svse.dao.votazione;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import javafx.util.Pair;
 import svse.dao.factory.DAOFactory;
 import svse.data.DBManager;
@@ -20,7 +17,6 @@ import svse.models.voto.Voto;
 import svse.models.voto.VotoCategorico;
 import svse.models.voto.VotoCategoricoConPreferenze;
 import svse.models.voto.VotoOrdinale;
-import svse.models.voto.VotoOrdinaleSingolo;
 import svse.models.voto.VotoReferendum;
 
 public class VotazioneJDBCDAO implements IVotazioneDAO {
@@ -39,7 +35,7 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 				p.setInt(2, idSessione);
 				p.execute();
 			} catch (SQLException e) {
-				throw new DatabaseException("Problemi con la base dati, riprovare!");
+				throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Voto");
 			}
 		} else if (t.getTipo().equals("c")) {
 			VotoCategorico vc = (VotoCategorico)t;
@@ -54,7 +50,7 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 					p.setInt(2, idSessione);
 					p.execute();
 				} catch (SQLException e) {
-					throw new DatabaseException("Problemi con la base dati, riprovare!");
+					throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Voto");
 				}
 			} else {
 				String q = "insert into Voto(id_lista, id_cand, id_sessione) values (?, ?, ?);";
@@ -68,7 +64,7 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 					p.setInt(3, idSessione);
 					p.execute();
 				} catch (SQLException e) {
-					throw new DatabaseException("Problemi con la base dati, riprovare!");
+					throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Voto");
 				}
 			}
 		} else if (t.getTipo().equals("p")) {
@@ -105,10 +101,10 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 						p.setInt(3, ordine);
 						p.execute();
 					} catch (SQLException e) {
-						throw new DatabaseException("Problemi con la base dati, riprovare!");
+						throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Voto");
 					}
 				}
-			} else {
+			} else if (t.getTipo().equals("r")) {
 				String q = "insert into Voto(id_lista, id_cand, id_sessione, ordine) values (?, ?, ?, ?);";
 				
 				for (Pair<Partecipante, Integer> entry : vo.getPartecipantiOrdinati()) {
@@ -124,8 +120,18 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 						p.setInt(4, ordine);
 						p.execute();
 					} catch (SQLException e) {
-						throw new DatabaseException("Problemi con la base dati, riprovare!");
+						throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Voto");
 					}
+				}
+			} else if (t.getTipo().equals("b")) {
+				String q = "insert into Voto(id_sessione) values (?);";
+				PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+				
+				try {
+					p.setInt(1, idSessione);
+					p.execute();
+				} catch (SQLException e) {
+					throw new DatabaseException("Problemi con la base dati, riprovare! Context: saveVuoto");
 				}
 			}
 		}
@@ -165,13 +171,48 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 	public int getTotaleVotanti(SessioneDiVoto s) {
 		int idSessione = DAOFactory.getFactory().getSessioneDAOInstance().getId(s);
 		int result = 0;
-		String q = "select count(id) from Votato where id_sessione = ?";
+		
+		if (s.getStrategiaVoto().equals("p")) {
+			String q = "select count(id) from Voto where id_sessione = ?;";
+			PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+			try {
+				p.setInt(1, idSessione);
+				ResultSet res = p.executeQuery();
+				while(res.next())
+					result = res.getInt(1);
+			} catch (SQLException sqe) {
+				throw new DatabaseException("Problemi con la base dati, riprovare!" + sqe.getMessage());
+			}
+		} else {
+			String q = "select count(id) from Votato where id_sessione = ?";
+			PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+			try {
+				p.setInt(1, idSessione);
+				ResultSet res = p.executeQuery();
+				while(res.next())
+					result = res.getInt(1);
+			} catch (SQLException sqe) {
+				throw new DatabaseException("Problemi con la base dati, riprovare!" + sqe.getMessage());
+			}
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public boolean haPartecipatoASessione(Elettore e, SessioneDiVoto s) {
+		int idElettore = DAOFactory.getFactory().getUtenteDAOInstance().getId(e);
+		int idSessione = DAOFactory.getFactory().getSessioneDAOInstance().getId(s);
+		boolean result;
+		String q = "select count(id) from Votato where id_utente = ? and id_sessione = ?;";
 		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
 		try {
-			p.setInt(1, idSessione);
+			p.setInt(1, idElettore);
+			p.setInt(2, idSessione);
 			ResultSet res = p.executeQuery();
-			while(res.next())
-				result = res.getInt(1);
+			if (!res.isBeforeFirst())
+				result = false;
+			else result = true;
 		} catch (SQLException sqe) {
 			throw new DatabaseException("Problemi con la base dati, riprovare!" + sqe.getMessage());
 		}

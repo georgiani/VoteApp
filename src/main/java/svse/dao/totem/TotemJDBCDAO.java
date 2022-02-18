@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import svse.data.DBManager;
 import svse.exceptions.DatabaseException;
-import svse.models.totem.Totem;
+import svse.totem.Totem;
 
 public class TotemJDBCDAO implements ITotemDAO {
 	@Override

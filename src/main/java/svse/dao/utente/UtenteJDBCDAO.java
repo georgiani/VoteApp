@@ -4,10 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.*;
 import java.util.List;
-
 import logger.ProjectLogger;
-import ps.IObserver;
-
 import java.util.ArrayList;
 import svse.data.DBManager;
 import svse.exceptions.*;

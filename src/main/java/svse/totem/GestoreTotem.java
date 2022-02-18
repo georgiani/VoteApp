@@ -1,4 +1,4 @@
-package svse.models.totem;
+package svse.totem;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -23,6 +23,7 @@ public class GestoreTotem extends Thread {
 		try {
 			ds.receive(dp);
 			String risp = new String(buffer, 0, buffer.length);
+			System.out.println(risp);
 			int id = Integer.parseInt(risp.trim());
 			c.passaInVoto(id);
 		} catch (Exception e) {

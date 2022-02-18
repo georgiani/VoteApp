@@ -3,8 +3,6 @@ package svse.controllers.elettoremain;
 import svse.controllers.Controller;
 import svse.dao.factory.DAOFactory;
 import svse.dao.sessione.ISessioneDAO;
-import svse.models.sessione.Candidato;
-import svse.models.sessione.Lista;
 import svse.models.sessione.SessioneDiVoto;
 import svse.models.utente.Elettore;
 

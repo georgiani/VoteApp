@@ -1,4 +1,4 @@
-package svse.models.totem;
+package svse.totem;
 
 import java.net.InetSocketAddress;
 
