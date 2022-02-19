@@ -3,6 +3,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import logger.ProjectLogger;
 import svse.controllers.Controller;
@@ -70,6 +71,18 @@ public class LoginController extends Controller {
 	 */
 	public void autenticaElettore() {
 		try {
+			if (cfElettore.getText() == null || cfElettore.getText().isEmpty()) {
+				Alert al = new Alert(AlertType.ERROR, "Campo codice fiscale non compilato!");
+				al.showAndWait();
+				return;
+			}
+			
+			if (passElettore.getText() == null || passElettore.getText().isEmpty()) {
+				Alert al = new Alert(AlertType.ERROR, "Campo password non compilato!");
+				al.showAndWait();
+				return;
+			}
+			
 			Utente u = utenteDAO.login(cfElettore.getText(), passElettore.getText());
 			
 			// si verifica se le credenziali inserite dall'utente sono davvero di un Elettore
@@ -91,6 +104,18 @@ public class LoginController extends Controller {
 	public void autenticaGestore() {
 		Utente u = null;
 		try {
+			if (cfGestore.getText() == null || cfGestore.getText().isEmpty()) {
+				Alert al = new Alert(AlertType.ERROR, "Campo codice fiscale non compilato!");
+				al.showAndWait();
+				return;
+			}
+			
+			if (passGestore.getText() == null || passGestore.getText().isEmpty()) {
+				Alert al = new Alert(AlertType.ERROR, "Campo password non compilato!");
+				al.showAndWait();
+				return;
+			}
+			
 			u = utenteDAO.login(cfGestore.getText(), passGestore.getText());
 			
 			// si verifica se le credenziali inserite dall'utente sono davvero di un Gestore 
@@ -107,8 +132,7 @@ public class LoginController extends Controller {
 	
 
 	public void registraElettore() {
-		// da implementare
-		System.out.println("Navigazione su pagina registrazione");
+		changeView("views/Registrazione.fxml");
 		chiudiTotem();
 	}
 

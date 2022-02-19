@@ -1,12 +1,15 @@
 package svse.models.sessione;
 
 public class SessioneDiVoto {
-	private String nomeSessione;
-	private String strategiaVincita;
-	private String strategiaVoto;
-	private String stato = null;
+	//@ invariant (strategiaVoto.equals("o") || strategiaVoto.equals("c")) -> tipo != null;
+	//@ invariant strategiaVoto.equals("r") -> domandaReferendum != null;
+	
+	private String /*@ non_null; spec_public @*/ nomeSessione;
+	private String /*@ non_null; spec_public @*/ strategiaVincita;
+	private String /*@ non_null; spec_public @*/ strategiaVoto;
+	private String /*@ non_null @*/ stato;
 	private String tipo = null;
-	private String domandaReferendum;
+	private String /*@ spec_public @*/ domandaReferendum;
 	
 	public SessioneDiVoto(String n, String vincita, String voto, String status, String t, String q) {
 		nomeSessione = n;

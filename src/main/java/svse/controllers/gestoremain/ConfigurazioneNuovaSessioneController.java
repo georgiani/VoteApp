@@ -92,12 +92,15 @@ private Gestore gestore;
         		// inserire anche modo per creare referendum
             	SessioneDiVoto s = new SessioneDiVoto(nomeS, chVincita, chVoto, "n", chTipo, domandaRef.getText());
             	sessioneDao.save(s); // insert sessione
-            	for (Map.Entry<String, List<Candidato>> entry : liste.entrySet()) {
-            		Lista l = new Lista(new Partito(entry.getKey()), entry.getValue());
-            		listaDao.save(l, s); // salvataggio lista in coerenza con la sua sessione
-            		
-            		for (Candidato c : l.getCandidati())
-            			candidatoDao.save(c, l); // salvataggio candidati con riferimento alla lista
+            	
+            	if (!chVoto.equals("r")) {
+            		for (Map.Entry<String, List<Candidato>> entry : liste.entrySet()) {
+                		Lista l = new Lista(new Partito(entry.getKey()), entry.getValue());
+                		listaDao.save(l, s); // salvataggio lista in coerenza con la sua sessione
+                		
+                		for (Candidato c : l.getCandidati())
+                			candidatoDao.save(c, l); // salvataggio candidati con riferimento alla lista
+                	}
             	}
         	}
         	

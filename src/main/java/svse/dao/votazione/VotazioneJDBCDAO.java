@@ -137,6 +137,9 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 		}
 	}
 
+	/*@ requires e != null && s != null;
+	  @ ensures haPartecipatoASessione(e, s) == true;
+	  @*/
 	@Override
 	public void confermaVotazione(Elettore e, SessioneDiVoto s) {
 		String q = "insert into Votato(id_utente, id_sessione) values((select id from Utente where cf = ?), (select id from Sessione where nome = ?))";
@@ -203,16 +206,19 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 	public boolean haPartecipatoASessione(Elettore e, SessioneDiVoto s) {
 		int idElettore = DAOFactory.getFactory().getUtenteDAOInstance().getId(e);
 		int idSessione = DAOFactory.getFactory().getSessioneDAOInstance().getId(s);
-		boolean result;
+		boolean result = false;
 		String q = "select count(id) from Votato where id_utente = ? and id_sessione = ?;";
 		PreparedStatement p = DBManager.getInstance().preparaStatement(q);
 		try {
 			p.setInt(1, idElettore);
 			p.setInt(2, idSessione);
 			ResultSet res = p.executeQuery();
-			if (!res.isBeforeFirst())
-				result = false;
-			else result = true;
+			
+			if (res.next()) {
+				if (res.getInt(1) == 0)
+					result = false;
+				else result = true;				
+			}
 		} catch (SQLException sqe) {
 			throw new DatabaseException("Problemi con la base dati, riprovare!" + sqe.getMessage());
 		}

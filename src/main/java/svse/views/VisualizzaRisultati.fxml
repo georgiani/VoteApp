@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="svse.controllers.gestoremain.VisualizzaRisultatiController">
    <children>
       <Text fx:id="testoRisultato" layoutX="195.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="210.21630859375" />

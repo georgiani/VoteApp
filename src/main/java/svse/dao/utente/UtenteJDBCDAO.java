@@ -15,6 +15,8 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 
 	public UtenteJDBCDAO() {}
 	
+	/*@ requires cf != null && password != null;
+	  @*/
 	public Utente login(String cf, String password) {		
 		String hashedPassword = sha1Hashing(password);
 	
@@ -45,6 +47,9 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 		return result;
 	}
 
+	/*@ requires t != null && pass != null && getId(t) == 0;
+	  @ ensures \result == true;
+	  @*/
 	public boolean registraElettore(Utente t, String pass) {
 		boolean result;
 		String q = "insert into Utente(nome, cognome, cf, ruolo, password) values(?, ?, ?, ?, ?)";
@@ -106,16 +111,10 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 		return results;
 	}
 	
-	public void save(Utente t) {
-		// usiamo registraElettore per facilita
-		return;
-	}
-
-	public void update(Utente t, Utente u) {
-		// non serve in questo caso
-		return;
-	}
-	
+	/*@
+	  @ requires password != null;
+	  @ ensures \result != password;
+	  @*/
 	private String sha1Hashing(String password) {
 		// applica un hash alla password per compararla con quella nel db
 		String result = "";
@@ -164,12 +163,9 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 			
 			ResultSet res = p.executeQuery();
 			
-			if (!res.isBeforeFirst())
-				throw new UtenteNotFoundException("Utente non esiste!");
-			
 			// prendi i risultati
-			res.next();
-			result = res.getInt(1);
+			while(res.next())
+				result = res.getInt(1);
 		} catch (SQLException e) {
 			throw new DatabaseException("Problemi con la base dati, riprovare! Context: getId");
 		}
@@ -179,5 +175,15 @@ public class UtenteJDBCDAO implements IUtenteDAO {
 	
 	public void delete(Utente t) {
 		// non usato
+	}
+	
+	public void save(Utente t) {
+		// usiamo registraElettore per facilita
+		return;
+	}
+
+	public void update(Utente t, Utente u) {
+		// non serve in questo caso
+		return;
 	}
 }

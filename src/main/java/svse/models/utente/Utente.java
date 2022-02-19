@@ -2,7 +2,7 @@ package svse.models.utente;
 
 public abstract class Utente {
 	private String nome, cognome, cf;
-	// TODO: da eliminare comune
+
 	public Utente(String n, String cg, String cf) {
 		this.nome = n;
 		this.cognome = cg;
