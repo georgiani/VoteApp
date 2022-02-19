@@ -82,7 +82,7 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 					p.setInt(3, idSessione);
 					p.execute();
 				} catch (SQLException e) {
-					throw new DatabaseException("Problemi con la base dati, riprovare!");
+					throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Voto");
 				}
 			}
 		} else if (t.getTipo().equals("o")) {
@@ -104,7 +104,7 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 						throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Voto");
 					}
 				}
-			} else if (t.getTipo().equals("r")) {
+			} else {
 				String q = "insert into Voto(id_lista, id_cand, id_sessione, ordine) values (?, ?, ?, ?);";
 				
 				for (Pair<Partecipante, Integer> entry : vo.getPartecipantiOrdinati()) {
@@ -123,16 +123,16 @@ public class VotazioneJDBCDAO implements IVotazioneDAO {
 						throw new DatabaseException("Problemi con la base dati, riprovare! Context: save Voto");
 					}
 				}
-			} else if (t.getTipo().equals("b")) {
-				String q = "insert into Voto(id_sessione) values (?);";
-				PreparedStatement p = DBManager.getInstance().preparaStatement(q);
-				
-				try {
-					p.setInt(1, idSessione);
-					p.execute();
-				} catch (SQLException e) {
-					throw new DatabaseException("Problemi con la base dati, riprovare! Context: saveVuoto");
-				}
+			}
+		} else if (t.getTipo().equals("b")) {
+			String q = "insert into Voto(id_sessione) values (?);";
+			PreparedStatement p = DBManager.getInstance().preparaStatement(q);
+			
+			try {
+				p.setInt(1, idSessione);
+				p.execute();
+			} catch (SQLException e) {
+				throw new DatabaseException("Problemi con la base dati, riprovare! Context: saveVuoto");
 			}
 		}
 	}

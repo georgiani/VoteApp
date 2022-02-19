@@ -102,10 +102,9 @@ private Gestore gestore;
                 			candidatoDao.save(c, l); // salvataggio candidati con riferimento alla lista
                 	}
             	}
+            	// finisci ed esci
+            	changeView("views/HomeGestore.fxml", gestore);
         	}
-        	
-        	// finisci ed esci
-        	changeView("views/HomeGestore.fxml", gestore);
     	}
     }
     
@@ -118,13 +117,13 @@ private Gestore gestore;
     }
     
     private boolean controlloCampi() {
-    	if (isEmptyOrNull(selezioneVoto.getSelectionModel().getSelectedItem())) {
+    	if (selezioneVoto.getSelectionModel().isEmpty()) {
     		Alert alert = new Alert(AlertType.INFORMATION, "Voto non selezionato!");
     		alert.showAndWait();
     		return false;
     	}
     	
-    	if (isEmptyOrNull(selezioneVincita.getSelectionModel().getSelectedItem())) {
+    	if (selezioneVincita.getSelectionModel().isEmpty()) {
     		Alert alert = new Alert(AlertType.INFORMATION, "Vincita non selezionato!");
     		alert.showAndWait();
     		return false;
@@ -136,7 +135,7 @@ private Gestore gestore;
     		return false;
     	}
     	
-    	if (liste.keySet().isEmpty() && !chVoto.equals("r")) {
+    	if (liste.isEmpty() && !chVoto.equals("r")) {
     		Alert alert = new Alert(AlertType.INFORMATION, "Inserire delle liste!");
     		alert.showAndWait();
     		return false;
@@ -156,7 +155,6 @@ private Gestore gestore;
     	if (!liste.containsKey(listaCorrente))
     		liste.put(listaCorrente, new ArrayList<Candidato>());
     	titoloBoxListe.setText("Aggiungi alla lista: " + listaCorrente);	
-    	System.out.println(liste.keySet());
     }
     
     public void aggiungiCandidato() {
@@ -191,6 +189,10 @@ private Gestore gestore;
     }
     
     private void cambiaModVincita(String vincita) {
+    	if (vincita == null) {
+    		chVincita = "";
+    		return;
+    	}
     	chVincita = (vincita.equals("Maggioranza") ? "m" : (vincita.equals("Maggioranza Assoluta") ? "a" : (vincita.equals("Referendum Senza Quroum") ? "r" : "q")));
     }
     

@@ -18,8 +18,7 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// si controlla che la db sia aperta e abbia le tabelle necessarie
-		DBManager.getInstance().ensureCreated();
+		DBManager.getInstance().open();
 		
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("views/Login.fxml"));
 		Parent root = loader.load();
@@ -44,6 +43,7 @@ public class App extends Application {
 	
 	public static void resize() {
 		stg.sizeToScene();
+		stg.show();
 	}
 	
 	public static Scene getAppScene() {

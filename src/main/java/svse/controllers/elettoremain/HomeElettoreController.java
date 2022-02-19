@@ -47,7 +47,6 @@ public class HomeElettoreController extends Controller implements IObserver {
     private void infoSessione(String newVal) {
     	sessioneSelezionata = newVal;
     	sessione = sessioneDao.get(sessioneSelezionata);
-    	System.out.println(sessione.getNome());
     	
     	// pulizia panello info
 		infoPane.getChildren().clear();

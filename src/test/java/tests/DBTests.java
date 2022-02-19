@@ -1,6 +1,8 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import svse.dao.factory.DAOFactory;
@@ -11,7 +13,12 @@ class DBSessione {
 	
 	@BeforeAll
 	public static void setup() {
-		DBManager.getInstance().ensureCreated();	
+		DBManager.getInstance().open();	
+	}
+	
+	@AfterAll
+	public static void end() {
+		DBManager.getInstance().close();
 	}
 	
 	@Test

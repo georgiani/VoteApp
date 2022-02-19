@@ -18,6 +18,7 @@ import svse.controllers.Controller;
 import svse.dao.factory.DAOFactory;
 import svse.dao.sessione.ISessioneDAO;
 import svse.dao.totem.ITotemDAO;
+import svse.exceptions.UtenteNotFoundException;
 import svse.models.sessione.SessioneDiVoto;
 import svse.models.utente.Elettore;
 import svse.models.utente.Gestore;
@@ -71,9 +72,17 @@ public class SceltaTotemController extends Controller {
 			alert.showAndWait();
 			return;
 		}
+	
+		Elettore e;
+		try {
+			e = (Elettore)DAOFactory.getFactory().getUtenteDAOInstance().get(cfElettore.getText());
+			
+		} catch (UtenteNotFoundException unfe) {
+			Alert alert = new Alert(AlertType.WARNING, "L'elettore inserito non esiste!");
+			alert.showAndWait();
+			return;
+		}
 		
-		
-		Elettore e = (Elettore)DAOFactory.getFactory().getUtenteDAOInstance().get(cfElettore.getText());
 		if (DAOFactory.getFactory().getVotazioneDAOInstance().haPartecipatoASessione(e, sessione)) {
 			Alert alert = new Alert(AlertType.WARNING, "L'elettore inserito ha gia partecipato a questa sessione!");
 			alert.showAndWait();
